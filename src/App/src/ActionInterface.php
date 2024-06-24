@@ -8,6 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 
 interface ActionInterface
 {
-    public const LOGIN_EVENT = 'login';
+    final public const EVENT_LOGIN = 'login';
     public function run(): ?ResponseInterface;
 }

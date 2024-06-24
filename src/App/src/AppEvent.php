@@ -9,14 +9,23 @@ use Laminas\EventManager\Event;
 use Laminas\View\Model\ViewModel;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Template\TemplateModel;
 
 final class AppEvent extends Event
 {
+    final public const EVENT_BOOTSTRAP      = 'bootstrap';
+    final public const EVENT_DISPATCH       = 'dispatch';
+    final public const EVENT_DISPATCH_ERROR = 'dispatch.error';
+    final public const EVENT_FINISH         = 'finish';
+    final public const EVENT_RENDER         = 'render';
+    final public const EVENT_RENDER_ERROR   = 'render.error';
+
     private App $app;
     private ServerRequest $request;
     private ResponseInterface $response;
     private mixed $result;
     private $template;
+    private TemplateModel $templateModel;
 
     public function setApp(App $app): self
     {
@@ -54,7 +63,7 @@ final class AppEvent extends Event
         return $this->response;
     }
 
-    public function setTemplate(ViewModel $template): self
+    public function setTemplate(TemplateModel $template): self
     {
         $this->setParam('template', $template);
         $this->template = $template;

@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App;
 
+use Template\TemplateAwareTrait;
+
 trait ActionAwareTrait
 {
+    use TemplateAwareTrait;
+
     private array $actionArray = [];
 
     public function setActions(array $actionArray): void

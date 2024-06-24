@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\ActionAwareTrait as AppActionAwareTrait;
-use App\Actions\ActionAwareTrait;
+use App\ActionAwareTrait;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\EventInterface;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
+use Template\TemplateAwareTrait;
 
 trait DispatchableInterfaceTrait
 {
-    use AppActionAwareTrait;
+    use ActionAwareTrait;
+    use TemplateAwareTrait;
 
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(AppEvents::Dispatch->value, [$this, 'onDispatch'], $priority);
+        $this->listeners[] = $events->attach(AppEvent::EVENT_DISPATCH, [$this, 'onDispatch'], $priority);
     }
 
     public function onDispatch(AppEvent $event): ?ResponseInterface
@@ -40,9 +41,10 @@ trait DispatchableInterfaceTrait
                  *
                  * Maps ['config']['actions'][$action]['class'] to $actionManager service name
                  */
-                return ($this->actionManager->get($action))->run();
+                $instance = $this->actionManager->get($action);
+                return $instance->run();
             } catch (ServiceNotFoundException $e) {
-                // todo: handle catching this....
+                throw $e;
             }
         }
         return null;

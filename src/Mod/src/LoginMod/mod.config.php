@@ -31,4 +31,9 @@ return [
     'listeners' => [
         Listener::class,
     ],
+    'templates' => [
+        'paths' => [
+            'login-mod' => [__DIR__ . '/../templates/login-mod'],
+        ],
+    ],
 ];

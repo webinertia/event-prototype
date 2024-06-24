@@ -26,7 +26,7 @@ final class LoginAction extends AbstractAction implements RequestAwareInterface
     {
         $eventManager = $this->getEventManager();
         //$eventManager->addIdentifiers([static::class]);
-        $result = $eventManager->trigger(ActionInterface::LOGIN_EVENT, $this, [
+        $result = $eventManager->trigger(ActionInterface::EVENT_LOGIN, $this, [
             'userData' => [
                 'userName' => 'Tyrsson',
                 'userId' => 1,
@@ -34,13 +34,15 @@ final class LoginAction extends AbstractAction implements RequestAwareInterface
             ],
             'userInstance' => $this->user,
         ]);
-        return new HtmlResponse(
-            '<b>LoginAction is running.</b><br>'
+        $template = $this->getTemplate();
+        $response = new HtmlResponse(
+            $template->render('app:login')
             . Debug::dump(
                 var: $this->user,
                 label: 'User\Entity\User',
                 echo: false
             )
         );
+        return $response;
     }
 }

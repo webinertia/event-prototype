@@ -28,8 +28,6 @@ final class App implements EventManagerAwareInterface
         MessageListener::class,
         DisplayListener::class,
         ActionListener::class,
-        // todo: add custom action listener?
-        TemplateManager::class,
     ];
 
     public function __construct(
@@ -51,7 +49,7 @@ final class App implements EventManagerAwareInterface
 
     private function dispatch(ServerRequestInterface $request, ?ResponseInterface $response = null)
     {
-        $this->event->setName(AppEvents::Dispatch->value);
+        $this->event->setName(AppEvent::EVENT_DISPATCH);
         $this->event->setRequest($request);
         $results = $this->getEventManager()->triggerEventUntil(function($returnedResponse) {
             return ($returnedResponse instanceof ResponseInterface);
@@ -73,10 +71,15 @@ final class App implements EventManagerAwareInterface
             $this->serviceManager->get($listener)->attach($eventManager);
         }
         // setup the bootstrap event in case any mods needs to get in on the action
-        $this->event->setName(AppEvents::Bootstrap->value);
+        $this->event->setName(AppEvent::EVENT_BOOTSTRAP);
         $this->event->stopPropagation(false);
         $eventManager->triggerEvent($this->event);
 
         return $this;
+    }
+
+    public function getServiceManager(): ServiceManager
+    {
+        return $this->serviceManager;
     }
 }

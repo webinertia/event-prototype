@@ -65,7 +65,7 @@ final class ConfigProvider
     {
         return [
             'aliases'   => [
-                ActionInterface::LOGIN_EVENT => LoginAction::class,
+                ActionInterface::EVENT_LOGIN => LoginAction::class,
             ],
             'delegators' => [
                 LoginAction::class => [
