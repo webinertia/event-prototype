@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Listeners;
 
+use App\DispatchableInterface;
+use App\DispatchableInterfaceTrait;
 use App\Actions\ActionManager;
 use Laminas\EventManager\AbstractListenerAggregate;
 
@@ -12,7 +14,8 @@ final class ActionListener extends AbstractListenerAggregate implements Dispatch
     use DispatchableInterfaceTrait;
 
     public function __construct(
-        private ActionManager $actionManager
+        private ActionManager $actionManager,
+        private array $config
     ) {
     }
 }

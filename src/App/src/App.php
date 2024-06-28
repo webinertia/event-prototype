@@ -24,10 +24,11 @@ final class App implements EventManagerAwareInterface
     private AppEvent $event;
 
     private $defaultListeners = [
-        BoardListener::class,
-        MessageListener::class,
-        DisplayListener::class,
-        ActionListener::class,
+        Listeners\BoardIndexListener::class,
+        Listeners\MessageIndexListener::class,
+        Listeners\DisplayListener::class,
+        Listeners\ActionListener::class,
+        Listeners\NotFoundListener::class,
     ];
 
     public function __construct(
@@ -58,7 +59,7 @@ final class App implements EventManagerAwareInterface
         if ($results->stopped()) {
             $this->emitter->emit($results->last());
         } else {
-            $this->emitter->emit(new HtmlResponse('<b>Not Found</b>', 404));
+            //$this->emitter->emit(new HtmlResponse('<b>Not Found</b>', 404));
         }
     }
 

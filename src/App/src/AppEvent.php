@@ -10,6 +10,7 @@ use Laminas\View\Model\ViewModel;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Template\TemplateModel;
+use Throwable;
 
 final class AppEvent extends Event
 {
@@ -85,5 +86,37 @@ final class AppEvent extends Event
     public function getResult(): mixed
     {
         return $this->result;
+    }
+
+    public function isError(): bool
+    {
+        return (bool) $this->getParam('error', false);
+    }
+
+    public function setError(string $message): self
+    {
+        $this->setParam('error', $message);
+        return $this;
+    }
+
+    public function getError(): ?string
+    {
+        return $this->getParam('error');
+    }
+
+    public function isException(): bool
+    {
+        return (bool) $this->getParam('exception', false);
+    }
+
+    public function setException(Throwable $th): self
+    {
+        $this->setParam('exception', $th);
+        return $this;
+    }
+
+    public function getException(): ?Throwable
+    {
+        return $this->getParam('exception');
     }
 }

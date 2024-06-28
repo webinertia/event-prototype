@@ -32,17 +32,33 @@ trait DispatchableInterfaceTrait
             try {
                 /**
                  * $action is the action=someaction
-                 * it must be a valid value for the Action enum which codifies known actions
-                 * expects mods to expose an backed enum Action to describe the custom action
-                 */
-                $action = $this->getActionClass($params['action']);
-                /**
+                 *
                  * The called action must return a ResponseInterface instance or it will 404
                  *
                  * Maps ['config']['actions'][$action]['class'] to $actionManager service name
+                 * todo: Improve this so that in development mode is just displays the exception, and in production it shows the 404 page
+                 *
                  */
-                $instance = $this->actionManager->get($action);
-                return $instance->run();
+                $action = $this->getActionClass($params['action']);
+                if ($this->actionManager->has((string) $action)) {
+                    $action = $this->actionManager->get($action);
+                } elseif (
+                    ! $this->actionManager->has((string) $action) // action not found
+                    && isset($this->config['debug']) // $this->config['debug'] is set
+                    && $this->config['debug'] // $this->config['debug'] is true, were in development mode
+                ) {
+                    // not found and in development mode, then this will throw an exception
+                    $action = $this->actionManager->get((string) $action);
+                } elseif (
+                    ! $this->actionManager->has((string) $action) // action not found
+                    && isset($this->config['debug']) // $this->config['debug'] is set
+                    && ! $this->config['debug'] // $this->config['debug'] is true, were in development mode
+                ) {
+                    // not found and in production mode
+                    $event->setError('404 Not Found.');
+                }
+                // when in production mode, if the action is not found just throw a 404
+                return $action?->run();
             } catch (ServiceNotFoundException $e) {
                 throw $e;
             }

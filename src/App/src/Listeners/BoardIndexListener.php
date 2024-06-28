@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Listeners;
 
+use App\DispatchableInterface;
+use App\DispatchableInterfaceTrait;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventInterface;
 use Psr\Http\Message\ResponseInterface;
 
-use function array_key_exists;
-
-final class MessageListener extends AbstractListenerAggregate implements DispatchableInterface
+final class BoardIndexListener extends AbstractListenerAggregate implements DispatchableInterface
 {
     use DispatchableInterfaceTrait;
 
@@ -20,9 +20,8 @@ final class MessageListener extends AbstractListenerAggregate implements Dispatc
     {
         /** @var ServerRequest */
         $request = $event->getParam('request');
-        $params  = $request->getQueryParams();
-        if (! empty($params['board']) && empty($params['topic'])) {
-            return new HtmlResponse('<b>Render MessageIndex for board id = ' . $params['board'] . ' </b>');
+        if ([] === $request->getQueryParams()) {
+            return new HtmlResponse('<b>Render BoardIndex</b>');
         }
         return null;
     }

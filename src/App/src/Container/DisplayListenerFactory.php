@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Container;
 
-use App\DisplayListener;
+use App\Listeners\DisplayListener;
 use Psr\Container\ContainerInterface;
 
 final class DisplayListenerFactory

@@ -12,6 +12,8 @@ use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Mod\LoginMod\Listener;
+use Template\Container\TemplateAwareInitializer;
 
 final class ConfigProvider
 {
@@ -34,18 +36,21 @@ final class ConfigProvider
                 EventManagerInterface::class => EventManager::class,
             ],
             'factories' => [
-                ActionListener::class   => Container\ActionListenerFactory::class,
-                Actions\ActionManager::class => Actions\Container\ActionManagerFactory::class,
-                App::class              => Container\AppFactory::class,
-                BoardListener::class    => Container\BoardListenerFactory::class,
-                DisplayListener::class  => Container\DisplayListenerFactory::class,
-                EmitterInterface::class => Container\EmitterFactory::class,
-                EventManager::class     => Container\EventManagerFactory::class,
-                LoginListener::class    => InvokableFactory::class,
-                MessageListener::class  => Container\MessageListenerFactory::class,
+
+                Actions\ActionManager::class          => Actions\Container\ActionManagerFactory::class,
+                App::class                            => Container\AppFactory::class,
+                EmitterInterface::class               => Container\EmitterFactory::class,
+                EventManager::class                   => Container\EventManagerFactory::class,
+                Listeners\ActionListener::class       => Container\ActionListenerFactory::class,
+                Listeners\BoardIndexListener::class   => Container\BoardIndexListenerFactory::class,
+                Listeners\DisplayListener::class      => Container\DisplayListenerFactory::class,
+                Listeners\MessageIndexListener::class => Container\MessageIndexListenerFactory::class,
+                Listeners\NotFoundListener::class     => Container\NotFoundListenerFactory::class,
+                LoginListener::class                  => InvokableFactory::class,
             ],
             'initializers' => [
                 Container\ActionAwareInitializer::class,
+                TemplateAwareInitializer::class,
             ],
         ];
     }
@@ -54,9 +59,8 @@ final class ConfigProvider
     {
         return [
             'login' => [
-                'param'     => 'login',
-                'class'    => LoginAction::class,
-                'listener' => LoginListener::class,
+                'param' => 'login',
+                'class' => LoginAction::class,
             ],
         ];
     }
@@ -87,6 +91,7 @@ final class ConfigProvider
         return [
             'paths' => [
                 'app'    => [__DIR__ . '/../templates/app'],
+                'error'  => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
             ],
         ];
