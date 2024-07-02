@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace Http;
 
 use App\ActionAwareTrait;
 use Laminas\Diactoros\ServerRequest;
@@ -12,6 +12,9 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Template\TemplateAwareTrait;
 
+/**
+ * @deprecated
+ */
 trait DispatchableInterfaceTrait
 {
     use ActionAwareTrait;

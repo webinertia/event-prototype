@@ -106,13 +106,14 @@ class TemplateRenderer implements TemplateRendererInterface
      *
      * Layouts specified with $params take precedence over layouts passed to
      *
-     * @param array|ModelInterface|object $params
      */
-    public function render(string $name, $params = []): string
+    public function render(ModelInterface|string $modelOrTemplate, $params = []): string
     {
-        $viewModel = $params instanceof ModelInterface
-            ? $this->mergeViewModel($name, $params)
-            : $this->createModel($name, $params);
+        if (is_string($modelOrTemplate)) {
+            $viewModel = $params instanceof ModelInterface
+                ? $this->mergeViewModel($modelOrTemplate, $params)
+                : $this->createModel($modelOrTemplate, $params);
+        }
 
         $useLayout = false !== $viewModel->getVariable('layout', null);
         if ($useLayout) {

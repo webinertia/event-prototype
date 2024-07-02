@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Template;
 
-use Laminas\View\ViewEvent;
+use Laminas\EventManager\Event;
 
-final class TemplateEvent extends ViewEvent
+final class TemplateEvent extends Event
 {
 
 }

@@ -9,10 +9,8 @@ use App\DispatchableInterfaceTrait;
 use App\Actions\ActionManager;
 use Laminas\EventManager\AbstractListenerAggregate;
 
-final class ActionListener extends AbstractListenerAggregate implements DispatchableInterface
+final class ActionListener extends AbstractListenerAggregate
 {
-    use DispatchableInterfaceTrait;
-
     public function __construct(
         private ActionManager $actionManager,
         private array $config

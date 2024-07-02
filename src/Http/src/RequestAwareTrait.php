@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace Http;
 
 use Laminas\Diactoros\ServerRequest;
 

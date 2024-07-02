@@ -18,8 +18,6 @@ final class CustomAction extends AbstractAction implements RequestAwareInterface
 
     public function run(): ?ResponseInterface
     {
-        $eventManager = $this->getEventManager();
-
         $template = $this->getTemplate();
 
         return new HtmlResponse($template->render('login-mod:' . $this->tmpl));

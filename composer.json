@@ -13,9 +13,11 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/App/src/",
+            "Http\\": "src/Http/src",
+            "Mod\\": "src/Mod/src/",
+            "Router\\": "src/Router/src",
             "Template\\": "src/Template/src/",
-            "User\\": "src/User/src/",
-            "Mod\\": "src/Mod/src/"
+            "User\\": "src/User/src/"
         }
     }
 }

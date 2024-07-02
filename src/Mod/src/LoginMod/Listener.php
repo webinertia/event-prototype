@@ -16,10 +16,8 @@ use Psr\Http\Message\ResponseInterface;
 use User\Entity\User;
 use User\UserInterface;
 
-final class Listener extends AbstractListenerAggregate implements DispatchableInterface
+final class Listener extends AbstractListenerAggregate
 {
-    use DispatchableInterfaceTrait;
-
     public function __construct(
         private ActionManager $actionManager,
         private Entity\LoginThingy $loginThingy,
@@ -43,5 +41,10 @@ final class Listener extends AbstractListenerAggregate implements DispatchableIn
     {
         $user = $event->getParam('userInstance');
         $user->modProperty = 'Some Mod Value';
+    }
+
+    public function onDispatch(AppEvent $event)
+    {
+
     }
 }

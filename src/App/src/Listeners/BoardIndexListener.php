@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
-use App\DispatchableInterface;
-use App\DispatchableInterfaceTrait;
+use App\AppEvent;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventInterface;
+use Laminas\EventManager\EventManagerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final class BoardIndexListener extends AbstractListenerAggregate implements DispatchableInterface
+final class BoardIndexListener extends AbstractListenerAggregate
 {
-    use DispatchableInterfaceTrait;
+
+    public function attach(EventManagerInterface $events, $priority = 1)
+    {
+        $this->listeners[] = $events->attach(AppEvent::EVENT_DISPATCH, [$this, 'onDispatch']);
+    }
 
     public function onDispatch(EventInterface $event): ?ResponseInterface
     {

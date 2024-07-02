@@ -9,5 +9,4 @@ use Psr\Http\Message\ResponseInterface;
 interface ActionInterface
 {
     final public const EVENT_LOGIN = 'login';
-    public function run(): ?ResponseInterface;
 }

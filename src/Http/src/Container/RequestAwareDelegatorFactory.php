@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Container;
+namespace Http\Container;
 
-use App\RequestAwareInterface;
+use Http\RequestAwareInterface;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 final class RequestAwareDelegatorFactory implements DelegatorFactoryInterface
 {
@@ -23,8 +23,8 @@ final class RequestAwareDelegatorFactory implements DelegatorFactoryInterface
         $instanceRequest = $instance->getRequest();
         if (! $instanceRequest instanceof ServerRequest) {
             /** @var ServerRequestFactory */
-            $factory = $container->get(ServerRequestFactoryInterface::class);
-            $instance->setRequest($factory::fromGlobals());
+            //$factory = $container->get(ServerRequestFactoryInterface::class);
+            $instance->setRequest($container->get(ServerRequestInterface::class));
         }
         return $instance;
     }

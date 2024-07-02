@@ -6,27 +6,31 @@ namespace App;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\EventManager\Event;
+use Laminas\View\Helper\Service\FlashMessengerFactory;
 use Laminas\View\Model\ViewModel;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Router\RouteResult;
 use Template\TemplateModel;
 use Throwable;
 
 final class AppEvent extends Event
 {
     final public const EVENT_BOOTSTRAP      = 'bootstrap';
+    final public const EVENT_ROUTE          = 'route';
     final public const EVENT_DISPATCH       = 'dispatch';
     final public const EVENT_DISPATCH_ERROR = 'dispatch.error';
-    final public const EVENT_FINISH         = 'finish';
     final public const EVENT_RENDER         = 'render';
     final public const EVENT_RENDER_ERROR   = 'render.error';
+    final public const EVENT_EMIT_RESPONSE  = 'emit.response'; // replaces EVENT_FINISH
 
     private App $app;
     private ServerRequest $request;
     private ResponseInterface $response;
-    private mixed $result;
+    private mixed $result = null;
     private $template;
     private TemplateModel $templateModel;
+    private RouteResult $routeResult;
 
     public function setApp(App $app): self
     {
@@ -74,6 +78,18 @@ final class AppEvent extends Event
     public function getTemplate(): ViewModel
     {
         return $this->template;
+    }
+
+    public function setRouteResult(RouteResult|false $routeResult): self
+    {
+        $this->setParam('routeResult', $routeResult);
+        $this->routeResult = $routeResult;
+        return $this;
+    }
+
+    public function getRouteResult(): RouteResult|false
+    {
+        return $this->routeResult;
     }
 
     public function setResult(mixed $result): self
