@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\ActionAwareInterface;
-use App\ActionAwareTrait;
 use App\ActionInterface;
 use App\AppEvent;
 use Http\DispatchableInterface;
@@ -15,7 +13,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Template\TemplateAwareInterface;
 use Template\TemplateAwareTrait;
-use Template\TemplateModel;
 
 abstract class InternalAbstractAction implements ActionInterface, DispatchableInterface, TemplateAwareInterface
 {

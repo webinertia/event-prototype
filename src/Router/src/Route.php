@@ -122,7 +122,7 @@ final class Route implements RouterInterface
             return false;
         }
 
-        if (isset($params['sa']) && ($params['sa'] !== $routeParams['sa']) || ! in_array($params['sa'], $routeParams['sub_actions'])) {
+        if ( isset($params['sa']) && ! in_array($params['sa'], $routeParams['subActions'])) {
             return false;
         }
 
@@ -131,7 +131,7 @@ final class Route implements RouterInterface
             $routeParams['default_params'],
             $routeParams['name'],
             $routeParams['actionClass'],
-            $routeParams['sub_actions']
+            $routeParams['subActions']
         );
 
         $paramKeys      = array_keys($params);

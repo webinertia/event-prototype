@@ -43,7 +43,6 @@ final class DispatchListener extends AbstractListenerAggregate
         }
         /** @var ServerRequest */
         $request = $event->getParam('request');
-        //$params  = $request->getQueryParams();
         $app         = $event->getApp();
         $routeResult = $event->getRouteResult();
         $actionClass = $routeResult instanceof RouteResult
