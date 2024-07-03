@@ -22,6 +22,7 @@ final class BoardIndexListener extends AbstractListenerAggregate
 
     public function onDispatch(EventInterface $event): ?ResponseInterface
     {
+        // todo: remove these listeners and route actions instead
         /** @var ServerRequest */
         $request = $event->getParam('request');
         if ([] === $request->getQueryParams()) {

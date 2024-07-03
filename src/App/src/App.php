@@ -22,9 +22,9 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
     use Psr7AwareTrait;
 
     private $defaultListeners = [
-        Listeners\BoardIndexListener::class,
-        Listeners\MessageIndexListener::class,
-        Listeners\DisplayListener::class,
+        //Listeners\BoardIndexListener::class,
+        //Listeners\MessageIndexListener::class,
+        //Listeners\DisplayListener::class,
         Listeners\RouteListener::class, // run this here since we need to step out pre routing for the previous listeners.
         Listeners\DispatchListener::class,
         Listeners\EmitResponseListener::class,

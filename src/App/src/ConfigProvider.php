@@ -116,9 +116,9 @@ final class ConfigProvider
                 'name'   => 'app.login',
                 'action' => 'login',
                 'methods' => ['GET', 'POST'],
-                'actionClass' => Actions\LoginAction::class
+                'actionClass' => Actions\LoginAction::class,
+                'subActions' => ['loginTwo'],
             ],
-
         ];
     }
 }

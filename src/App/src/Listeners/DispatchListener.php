@@ -131,8 +131,10 @@ final class DispatchListener extends AbstractListenerAggregate
                 $event->setRequest($request);
             }
             $model->setVariables($container->mergeFortemplate($return));
+            $event->setResult($model);
             return $model;
         }
+        $event->setResult($return);
         return $return;
     }
 }

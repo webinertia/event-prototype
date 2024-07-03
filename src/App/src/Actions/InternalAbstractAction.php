@@ -8,16 +8,14 @@ use App\ActionAwareInterface;
 use App\ActionAwareTrait;
 use App\ActionInterface;
 use App\AppEvent;
-use App\Listeners\DispatchListener;
 use Http\DispatchableInterface;
-use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerAwareTrait;
-use Laminas\EventManager\EventManagerInterface;
 use Laminas\View\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Template\TemplateAwareInterface;
 use Template\TemplateAwareTrait;
+use Template\TemplateModel;
 
 abstract class InternalAbstractAction implements ActionInterface, DispatchableInterface, TemplateAwareInterface
 {
@@ -25,6 +23,8 @@ abstract class InternalAbstractAction implements ActionInterface, DispatchableIn
     use TemplateAwareTrait;
 
     private AppEvent $event;
+
+    protected $eventIdentifier;
 
     abstract public function onDispatch(AppEvent $event);
 
@@ -41,14 +41,6 @@ abstract class InternalAbstractAction implements ActionInterface, DispatchableIn
         return $event->getResult();
     }
 
-    // public function setEventManager(EventManagerInterface $events)
-    // {
-    //     $this->eventManager = $events;
-    //     $events->setIdentifiers(
-    //         [$this::class, static::class]
-    //     );
-    // }
-
     public function setEvent(AppEvent $event): void
     {
         $this->event = $event;
@@ -61,8 +53,6 @@ abstract class InternalAbstractAction implements ActionInterface, DispatchableIn
 
     final protected function attachDefaultListeners(): void
     {
-        //$events = $this->getEventManager();
-        //$events->detach(DispatchListener::class, 'onDispatch');
         $this->getEventManager()->attach(AppEvent::EVENT_DISPATCH, [$this, 'onDispatch']);
     }
 }

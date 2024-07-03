@@ -22,26 +22,28 @@ final class Route implements RouterInterface
         public string $name,
         public string $actionClass,
         public ?string $action       = null,
+        public ?array $subActions    = [],
         public ?string $area         = null,
         public ?string $board        = null,
         public ?array $defaultParams = [],
         public ?int $priority        = null,
-        public ?string $subAction    = null,
+        public ?string $sa           = null,
         public ?string $topic        = null
     ) {
     }
 
     public static function factory(iterable $options): self
     {
-        $methods       = null;
+        $methods       = [];
         $name          = null;
         $actionClass   = null;
         $action        = null;
+        $subActions    = [];
         $area          = null;
         $board         = null;
-        $defaultParams = null;
+        $defaultParams = [];
         $priority      = null;
-        $subAction     = null;
+        $sa            = null;
         $topic         = null;
 
         // if we have iterabe....
@@ -84,7 +86,11 @@ final class Route implements RouterInterface
         }
 
         if (array_key_exists('sa', $options)) {
-            $subAction = $options['sa'];
+            $sa = $options['sa'];
+        }
+
+        if (array_key_exists('sub_actions', $options)) {
+            $subActions = $options['sub_actions'];
         }
 
         if (array_key_exists('topic', $options)) {
@@ -96,11 +102,12 @@ final class Route implements RouterInterface
             $name,
             $actionClass,
             $action,
+            $subActions,
             $area,
             $board,
             $defaultParams,
             $priority,
-            $subAction,
+            $sa,
             $topic
         );
     }
@@ -115,11 +122,16 @@ final class Route implements RouterInterface
             return false;
         }
 
+        if (isset($params['sa']) && ($params['sa'] !== $routeParams['sa']) || ! in_array($params['sa'], $routeParams['sub_actions'])) {
+            return false;
+        }
+
         unset(
             $routeParams['methods'],
             $routeParams['default_params'],
             $routeParams['name'],
-            $routeParams['actionClass']
+            $routeParams['actionClass'],
+            $routeParams['sub_actions']
         );
 
         $paramKeys      = array_keys($params);
