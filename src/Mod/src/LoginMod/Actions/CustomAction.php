@@ -14,10 +14,12 @@ final class CustomAction extends AbstractAction implements RequestAwareInterface
 {
     use RequestAwareTrait;
 
+    private string $tmpl = 'custom-action';
+
     public function run(): ?ResponseInterface
     {
-        $eventManager = $this->getEventManager();
+        $template = $this->getTemplate();
 
-        return new HtmlResponse('<b>Custom Action is running</b>');
+        return new HtmlResponse($template->render('login-mod:' . $this->tmpl));
     }
 }

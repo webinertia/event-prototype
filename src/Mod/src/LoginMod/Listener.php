@@ -6,7 +6,6 @@ namespace Mod\LoginMod;
 
 use App\Actions\ActionManager;
 use App\AppEvent;
-use App\AppEvents;
 use App\DispatchableInterface;
 use App\DispatchableInterfaceTrait;
 use Laminas\EventManager\AbstractListenerAggregate;
@@ -17,10 +16,8 @@ use Psr\Http\Message\ResponseInterface;
 use User\Entity\User;
 use User\UserInterface;
 
-final class Listener extends AbstractListenerAggregate implements DispatchableInterface
+final class Listener extends AbstractListenerAggregate
 {
-    use DispatchableInterfaceTrait;
-
     public function __construct(
         private ActionManager $actionManager,
         private Entity\LoginThingy $loginThingy,
@@ -30,8 +27,8 @@ final class Listener extends AbstractListenerAggregate implements DispatchableIn
 
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(AppEvents::Bootstrap->value, [$this, 'onBootstrap'], $priority);
-        $this->listeners[] = $events->attach(AppEvents::Dispatch->value, [$this, 'onDispatch'], $priority);
+        $this->listeners[] = $events->attach(AppEvent::EVENT_BOOTSTRAP, [$this, 'onBootstrap'], $priority);
+        $this->listeners[] = $events->attach(AppEvent::EVENT_DISPATCH, [$this, 'onDispatch'], $priority);
         $this->listeners[] = $events->attach(LoginMod::TARGET_EVENT, [$this, 'onLogin'], $priority);
     }
 
@@ -44,5 +41,10 @@ final class Listener extends AbstractListenerAggregate implements DispatchableIn
     {
         $user = $event->getParam('userInstance');
         $user->modProperty = 'Some Mod Value';
+    }
+
+    public function onDispatch(AppEvent $event)
+    {
+
     }
 }

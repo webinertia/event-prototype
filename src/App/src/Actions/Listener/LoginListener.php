@@ -8,7 +8,6 @@ use App\ActionAwareInterface;
 use App\ActionAwareTrait;
 use App\ActionInterface;
 use App\Actions\LoginAction;
-use App\AppEvents;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventInterface;
@@ -21,7 +20,7 @@ final class LoginListener extends AbstractListenerAggregate implements ActionAwa
 
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ActionInterface::LOGIN_EVENT, [$this, 'onLogin'], 10000);
+        $this->listeners[] = $events->attach(ActionInterface::EVENT_LOGIN, [$this, 'onLogin'], 10000);
     }
 
     public function onLogin(EventInterface $event)

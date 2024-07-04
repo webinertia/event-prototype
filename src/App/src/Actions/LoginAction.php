@@ -4,43 +4,34 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\ActionInterface;
-use App\RequestAwareInterface;
-use App\RequestAwareTrait;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Psr\Http\Message\ResponseInterface;
+use Template\TemplateModel;
 use User\Entity\User;
 use User\UserInterface;
-use Webinertia\Utils\Debug;
 
-final class LoginAction extends AbstractAction implements RequestAwareInterface
+final class LoginAction extends AbstractAction
 {
-    use RequestAwareTrait;
-
     public function __construct(
         private UserInterface&User $user
     ) {
     }
 
-    public function run(): ?ResponseInterface
+    public function login(?string $subAction = null)
     {
-        $eventManager = $this->getEventManager();
-        //$eventManager->addIdentifiers([static::class]);
-        $result = $eventManager->trigger(ActionInterface::LOGIN_EVENT, $this, [
-            'userData' => [
-                'userName' => 'Tyrsson',
-                'userId' => 1,
-                'role' => 'Administrator'
-            ],
-            'userInstance' => $this->user,
-        ]);
-        return new HtmlResponse(
-            '<b>LoginAction is running.</b><br>'
-            . Debug::dump(
-                var: $this->user,
-                label: 'User\Entity\User',
-                echo: false
-            )
-        );
+        $model = new TemplateModel(); // return this for the moment to see if dispatch continues
+        $model->setTemplate('app:login');
+        return match($subAction) {
+            'loginTwo' => $this->loginTwo($model),
+            default => $model
+        };
+    }
+
+    protected function loginTwo(TemplateModel $template)
+    {
+        $event = $this->getEvent();
+        $subTemplate = new TemplateModel();
+        $subTemplate->setTemplate('app:login-two');
+        $subTemplate->setVariables(['login_two_variable' => 'login_two_variable_value']);
+        $template->addChild($subTemplate);
+        return $template;
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
-interface ActionAwareInterface
+use Template\TemplateAwareInterface;
+
+interface ActionAwareInterface extends TemplateAwareInterface
 {
     public function setActions(array $actionArray): void;
     public function getActions(): ?array;
