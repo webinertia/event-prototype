@@ -11,19 +11,18 @@ use Laminas\EventManager\EventManagerAwareTrait;
 use Laminas\View\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Template\TemplateAwareInterface;
-use Template\TemplateAwareTrait;
 
-abstract class InternalAbstractAction implements ActionInterface, DispatchableInterface, TemplateAwareInterface
+abstract class InternalAbstractAction implements ActionInterface, DispatchableInterface
 {
     use EventManagerAwareTrait;
-    use TemplateAwareTrait;
 
     private AppEvent $event;
 
     protected $eventIdentifier;
 
-    abstract public function onDispatch(AppEvent $event);
+    protected ModelInterface $template;
+
+    // abstract public function onDispatch(AppEvent $event);
 
     public function dispatch(ServerRequestInterface $request, ?ResponseInterface $response = null)
     {

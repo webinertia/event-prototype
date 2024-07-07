@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Model\ModelInterface;
 use Template\TemplateModel;
 use User\Entity\User;
 use User\UserInterface;
@@ -13,25 +15,25 @@ final class LoginAction extends AbstractAction
     public function __construct(
         private UserInterface&User $user
     ) {
+        $this->template = new TemplateModel();
     }
 
-    public function login(?string $subAction = null)
+    public function __invoke(?string $subAction = null): ModelInterface
     {
-        $model = new TemplateModel(); // return this for the moment to see if dispatch continues
-        $model->setTemplate('app:login');
+        $this->template->setTemplate('app:login');
+        $this->getEvent()->setTemplate($this->template);
         return match($subAction) {
-            'loginTwo' => $this->loginTwo($model),
-            default => $model
+            'loginTwo' => $this->loginTwo($this->template),
+            default => $this->template
         };
     }
 
     protected function loginTwo(TemplateModel $template)
     {
-        $event = $this->getEvent();
         $subTemplate = new TemplateModel();
         $subTemplate->setTemplate('app:login-two');
         $subTemplate->setVariables(['login_two_variable' => 'login_two_variable_value']);
-        $template->addChild($subTemplate);
+        $template->addChild($subTemplate, 'loginTwo');
         return $template;
     }
 }

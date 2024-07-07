@@ -8,11 +8,12 @@ use App\AppEvent;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class EmitResponseListener extends AbstractListenerAggregate
 {
     public function __construct(
-        private EmitterInterface $emitter,
+        private EmitterInterface $emitter
     ) {
     }
 
@@ -23,6 +24,8 @@ final class EmitResponseListener extends AbstractListenerAggregate
 
     public function onEmitResponse(AppEvent $event)
     {
-        //$model =
+        /** @var ResponseInterface */
+        $response = $event->getResponse();
+        $this->emitter->emit($response);
     }
 }

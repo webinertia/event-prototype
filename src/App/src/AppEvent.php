@@ -6,12 +6,10 @@ namespace App;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\EventManager\Event;
-use Laminas\View\Helper\Service\FlashMessengerFactory;
-use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Router\RouteResult;
-use Template\TemplateModel;
 use Throwable;
 
 final class AppEvent extends Event
@@ -29,7 +27,7 @@ final class AppEvent extends Event
     private ResponseInterface $response;
     private mixed $result = null;
     private $template;
-    private TemplateModel $templateModel;
+    private ModelInterface $templateModel;
     private RouteResult $routeResult;
 
     public function setApp(App $app): self
@@ -68,14 +66,14 @@ final class AppEvent extends Event
         return $this->response;
     }
 
-    public function setTemplate(TemplateModel $template): self
+    public function setTemplate(ModelInterface $template): self
     {
         $this->setParam('template', $template);
         $this->template = $template;
         return $this;
     }
 
-    public function getTemplate(): ViewModel
+    public function getTemplate(): ModelInterface
     {
         return $this->template;
     }
@@ -134,5 +132,15 @@ final class AppEvent extends Event
     public function getException(): ?Throwable
     {
         return $this->getParam('exception');
+    }
+
+    public function setResponseType(string $type = 'html'): void
+    {
+        $this->setParam('responseType', $type);
+    }
+
+    public function getResponseType(): string
+    {
+        return $this->getParam('responseType', 'html');
     }
 }

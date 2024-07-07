@@ -27,6 +27,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         //Listeners\DisplayListener::class,
         Listeners\RouteListener::class, // run this here since we need to step out pre routing for the previous listeners.
         Listeners\DispatchListener::class,
+        Listeners\RenderListener::class,
         Listeners\EmitResponseListener::class,
         //Listeners\ActionListener::class,
         //Listeners\NotFoundListener::class,
@@ -104,15 +105,16 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $result = $events->triggerEventUntil($propagationCheck, $event);
 
         // Emit response
-        $response = $result->last();
-        if ($response instanceof ModelInterface) {
-            $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
-            $event->setTarget($this);
-            $event->setTemplate($response);
-            $event->stopPropagation(false);
-            $events->triggerEvent($event);
-            return $this;
-        }
+        // $response = $result->last();
+        // if ($response instanceof ModelInterface) {
+        //     $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
+        //     $event->setTarget($this);
+        //     $event->setTemplate($response);
+        //     $event->stopPropagation(false);
+        //     $events->triggerEvent($event);
+        //     return $this;
+        // }
+        return $this->completeRequest($event);
     }
 
     public function getServiceManager(): ServiceManager
@@ -124,6 +126,10 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
     {
         $events = $this->getEventManager();
         $event->setTarget($this);
+
+        $event->setName(AppEvent::EVENT_RENDER);
+        $event->stopPropagation(false);
+        $events->triggerEvent($event);
 
         $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
         $event->stopPropagation(false);
