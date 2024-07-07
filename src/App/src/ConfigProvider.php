@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Container;
-use App\Actions\Listener\LoginListener;
-use App\Actions\LoginAction;
-use App\Container\RequestAwareDelegatorFactory;
+use Http\Container\Psr7AwareDelegatorFactory;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerInterface;
-use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Psr\Http\Message\ServerRequestFactoryInterface;
+use Template\Container\TemplateAwareInitializer;
+
 
 final class ConfigProvider
 {
     public function __invoke(): array
     {
         return [
-            ActionInterface::class => $this->getActions(),
             'action_manager' => $this->getActionManagerConfig(),
             'dependencies'   => $this->getDependencies(),
             'listeners'      => [], // list of listeners to attach, easy for mod authors
             'templates'      => $this->getTemplates(),
+            'routes'         => $this->getRoutes(),
         ];
     }
 
@@ -30,33 +29,30 @@ final class ConfigProvider
     {
         return [
             'aliases'   => [
+                'Context' => ContextInterface::class,
+                'context' => ContextInterface::class,
+                ContextInterface::class => ContextContainer::class,
                 'EventManager'               => EventManagerInterface::class, // many underlying laminas components expect to find this Service Name
                 EventManagerInterface::class => EventManager::class,
             ],
             'factories' => [
-                ActionListener::class   => Container\ActionListenerFactory::class,
-                Actions\ActionManager::class => Actions\Container\ActionManagerFactory::class,
-                App::class              => Container\AppFactory::class,
-                BoardListener::class    => Container\BoardListenerFactory::class,
-                DisplayListener::class  => Container\DisplayListenerFactory::class,
-                EmitterInterface::class => Container\EmitterFactory::class,
-                EventManager::class     => Container\EventManagerFactory::class,
-                LoginListener::class    => InvokableFactory::class,
-                MessageListener::class  => Container\MessageListenerFactory::class,
+                Actions\ActionManager::class          => Actions\Container\ActionManagerFactory::class,
+                App::class                            => Container\AppFactory::class,
+                ContextContainer::class               => Container\ContextContainerFactory::class,
+                EventManager::class                   => Container\EventManagerFactory::class,
+                Listeners\DispatchListener::class     => Container\DispatchListenerFactory::class,
+                Listeners\EmitResponseListener::class => Container\EmitResponseListenerFactory::class,
+                Listeners\NotFoundListener::class     => Container\NotFoundListenerFactory::class,
+                Listeners\RenderListener::class       => Container\RenderListenerFactory::class,
+                Listeners\RouteListener::class        => Container\RouteListenerFactory::class,
+            ],
+            'delegators' => [
+                App::class => [
+                    Psr7AwareDelegatorFactory::class,
+                ],
             ],
             'initializers' => [
-                Container\ActionAwareInitializer::class,
-            ],
-        ];
-    }
-
-    public function getActions(): array
-    {
-        return [
-            'login' => [
-                'param'     => 'login',
-                'class'    => LoginAction::class,
-                'listener' => LoginListener::class,
+                TemplateAwareInitializer::class,
             ],
         ];
     }
@@ -64,20 +60,14 @@ final class ConfigProvider
     public function getActionManagerConfig(): array
     {
         return [
-            'aliases'   => [
-                ActionInterface::LOGIN_EVENT => LoginAction::class,
-            ],
-            'delegators' => [
-                LoginAction::class => [
-                    RequestAwareDelegatorFactory::class, // runs only for LoginAction
-                ],
-            ],
             'factories' => [
-                LoginAction::class => Actions\Container\LoginActionFactory::class,
+                Actions\BoardIndexAction::class   => InvokableFactory::class,
+                Actions\DisplayAction::class      => InvokableFactory::class,
+                Actions\MessageIndexAction::class => InvokableFactory::class,
+                Actions\LoginAction::class        => Actions\Container\LoginActionFactory::class,
             ],
             'initializers' => [
                 Actions\Container\EventManagerAwareInitializer::class, // Runs for all services created by ActionManager
-                Container\ActionAwareInitializer::class,
             ],
         ];
     }
@@ -87,7 +77,51 @@ final class ConfigProvider
         return [
             'paths' => [
                 'app'    => [__DIR__ . '/../templates/app'],
+                'error'  => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
+            ],
+        ];
+    }
+
+    public function getRoutes(): array
+    {
+        return [
+            [
+                'name'   => 'app.board.index',
+                'query' => [],
+                'methods' => ['GET'],
+                'action_class' => Actions\BoardIndexAction::class,
+            ],
+            [
+                'name' => 'app.message.index',
+                'methods' => ['GET'],
+                'query' => [
+                    'board'
+                ],
+                'action_class' => Actions\MessageIndexAction::class,
+            ],
+            [
+                'name' => 'app.display',
+                'methods' => ['GET', 'POST'],
+                'query' => ['topic'],
+                'action_class' => Actions\DisplayAction::class,
+            ],
+            [
+                'name'   => 'app.login',
+                'query' => [
+                    'action' => 'login',
+                ],
+                'methods' => ['GET', 'POST'],
+                'action_class' => Actions\LoginAction::class,
+            ],
+            [
+                'name'   => 'app.login.loginTwo',
+                'query' => [
+                    'action' => 'login',
+                    'sa'     => 'loginTwo',
+                ],
+                'methods' => ['GET', 'POST'],
+                'action_class' => Actions\LoginAction::class,
             ],
         ];
     }

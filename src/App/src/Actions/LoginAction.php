@@ -4,43 +4,36 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\ActionInterface;
-use App\RequestAwareInterface;
-use App\RequestAwareTrait;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Psr\Http\Message\ResponseInterface;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Model\ModelInterface;
+use Template\TemplateModel;
 use User\Entity\User;
 use User\UserInterface;
-use Webinertia\Utils\Debug;
 
-final class LoginAction extends AbstractAction implements RequestAwareInterface
+final class LoginAction extends AbstractAction
 {
-    use RequestAwareTrait;
-
     public function __construct(
         private UserInterface&User $user
     ) {
+        $this->template = new TemplateModel();
     }
 
-    public function run(): ?ResponseInterface
+    public function __invoke(?string $subAction = null): ModelInterface
     {
-        $eventManager = $this->getEventManager();
-        //$eventManager->addIdentifiers([static::class]);
-        $result = $eventManager->trigger(ActionInterface::LOGIN_EVENT, $this, [
-            'userData' => [
-                'userName' => 'Tyrsson',
-                'userId' => 1,
-                'role' => 'Administrator'
-            ],
-            'userInstance' => $this->user,
-        ]);
-        return new HtmlResponse(
-            '<b>LoginAction is running.</b><br>'
-            . Debug::dump(
-                var: $this->user,
-                label: 'User\Entity\User',
-                echo: false
-            )
-        );
+        $this->template->setTemplate('app:login');
+        $this->getEvent()->setTemplate($this->template);
+        return match($subAction) {
+            'loginTwo' => $this->loginTwo($this->template),
+            default => $this->template
+        };
+    }
+
+    protected function loginTwo(TemplateModel $template)
+    {
+        $subTemplate = new TemplateModel();
+        $subTemplate->setTemplate('app:login-two');
+        $subTemplate->setVariables(['login_two_variable' => 'login_two_variable_value']);
+        $template->addChild($subTemplate, 'loginTwo');
+        return $template;
     }
 }

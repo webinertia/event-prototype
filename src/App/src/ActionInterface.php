@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
-use Psr\Http\Message\ResponseInterface;
+use Laminas\View\Model\ModelInterface;
 
 interface ActionInterface
 {
-    public const LOGIN_EVENT = 'login';
-    public function run(): ?ResponseInterface;
+    public function __invoke(?string $subAction = null): ModelInterface;
+    public function onDispatch(AppEvent $event);
 }
