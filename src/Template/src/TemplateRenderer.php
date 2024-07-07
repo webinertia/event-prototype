@@ -109,11 +109,10 @@ class TemplateRenderer implements TemplateRendererInterface
      */
     public function render(ModelInterface|string $modelOrTemplate, $params = []): string
     {
-        if (is_string($modelOrTemplate)) {
-            $viewModel = $params instanceof ModelInterface
-                ? $this->mergeViewModel($modelOrTemplate, $params)
-                : $this->createModel($modelOrTemplate, $params);
-        }
+
+        $viewModel = $params instanceof ModelInterface
+            ? $this->mergeViewModel($modelOrTemplate, $params)
+            : $this->createModel($modelOrTemplate, $params);
 
         $useLayout = false !== $viewModel->getVariable('layout', null);
         if ($useLayout) {

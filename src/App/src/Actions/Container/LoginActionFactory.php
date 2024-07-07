@@ -15,8 +15,6 @@ final class LoginActionFactory
     public function __invoke(ContainerInterface $container): LoginAction
     {
         $eventManager = $container->get(EventManagerInterface::class);
-        $loginListener = $container->get(LoginListener::class);
-        $loginListener->attach($eventManager);
         $action = new LoginAction($container->get(UserInterface::class));
         $action->setEventManager($eventManager);
         return $action;

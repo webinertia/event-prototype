@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace Mod\LoginMod\Actions;
 
 use App\Actions\AbstractAction;
-use App\RequestAwareInterface;
-use App\RequestAwareTrait;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Psr\Http\Message\ResponseInterface;
+use Laminas\View\Model\ModelInterface;
+use Template\TemplateModel;
 
-final class CustomAction extends AbstractAction implements RequestAwareInterface
+final class CustomAction extends AbstractAction
 {
-    use RequestAwareTrait;
 
     private string $tmpl = 'custom-action';
 
-    public function run(): ?ResponseInterface
+    public function __invoke(?string $subAction = null): ModelInterface
     {
-        $template = $this->getTemplate();
-
-        return new HtmlResponse($template->render('login-mod:' . $this->tmpl));
+        $this->template = new TemplateModel();
+        $this->template->setTemplate('login-mod:custom-action');
+        return $this->template;
     }
+
 }

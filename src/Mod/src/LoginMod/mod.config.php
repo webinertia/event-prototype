@@ -4,20 +4,10 @@ declare(strict_types=1);
 
 namespace Mod\LoginMod;
 
-use App\ActionInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    ActionInterface::class => [
-        'custom-action' => [
-            'param' => 'custom-action',
-            'class' => Actions\CustomAction::class,
-        ],
-    ],
     'action_manager' => [
-        'aliases' => [
-            LoginMod::TARGET_EVENT => Actions\CustomAction::class,
-        ],
         'factories' => [
             Actions\CustomAction::class => InvokableFactory::class,
         ],
@@ -30,6 +20,16 @@ return [
     ],
     'listeners' => [
         Listener::class,
+    ],
+    'routes' => [
+        [
+            'name'   => 'loginmod.custom.action',
+            'query' => [
+                'action' => 'custom-action',
+            ],
+            'methods' => ['GET'],
+            'action_class' => Actions\CustomAction::class,
+        ],
     ],
     'templates' => [
         'paths' => [
