@@ -73,17 +73,12 @@ final class Route implements RouterInterface
             return false;
         }
 
-        // if ([] === $this->query) {
-        //     return new RouteResult($this->name, array_filter((array) $this));
-        // }
-
         $paramKeys      = array_keys($requestQuery);
         if (ArrayUtils::isList($this->query) || ArrayUtils::hasNumericKeys($this->query, true)) {
             $routeQueryKeys = array_keys(array_flip($this->query));
         } elseif (ArrayUtils::hasStringKeys($this->query)) {
             $routeQueryKeys = array_keys($this->query);
         }
-
 
         if ($paramKeys === $routeQueryKeys && ! isset($this->query['action'])) {
             return new RouteResult($this->name, array_filter((array) $this));
