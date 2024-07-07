@@ -18,7 +18,6 @@ final class AppEvent extends Event
     final public const EVENT_ROUTE          = 'route';
     final public const EVENT_DISPATCH       = 'dispatch';
     final public const EVENT_DISPATCH_ERROR = 'dispatch.error';
-    final public const EVENT_RENDER         = 'render';
     final public const EVENT_RENDER_ERROR   = 'render.error';
     final public const EVENT_EMIT_RESPONSE  = 'emit.response'; // replaces EVENT_FINISH
 
@@ -26,8 +25,8 @@ final class AppEvent extends Event
     private ServerRequest $request;
     private ResponseInterface $response;
     private mixed $result = null;
-    private $template;
-    private ModelInterface $templateModel;
+    //private $template;
+    //private ModelInterface $templateModel;
     private RouteResult $routeResult;
 
     public function setApp(App $app): self
@@ -66,17 +65,17 @@ final class AppEvent extends Event
         return $this->response;
     }
 
-    public function setTemplate(ModelInterface $template): self
-    {
-        $this->setParam('template', $template);
-        $this->template = $template;
-        return $this;
-    }
+    // public function setTemplate(ModelInterface $template): self
+    // {
+    //     $this->setParam('template', $template);
+    //     $this->template = $template;
+    //     return $this;
+    // }
 
-    public function getTemplate(): ModelInterface
-    {
-        return $this->template;
-    }
+    // public function getTemplate(): ModelInterface
+    // {
+    //     return $this->template;
+    // }
 
     public function setRouteResult(RouteResult|false $routeResult): self
     {
@@ -132,15 +131,5 @@ final class AppEvent extends Event
     public function getException(): ?Throwable
     {
         return $this->getParam('exception');
-    }
-
-    public function setResponseType(string $type = 'html'): void
-    {
-        $this->setParam('responseType', $type);
-    }
-
-    public function getResponseType(): string
-    {
-        return $this->getParam('responseType', 'html');
     }
 }

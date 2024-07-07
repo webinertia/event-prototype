@@ -8,13 +8,13 @@ use App\Actions\ActionManager;
 use App\AppEvent;
 use App\AppInterface;
 use App\ContextInterface;
-use App\InjectAppEventInterface;
 use Exception;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Model\ModelInterface;
+use Psr\Http\Message\ResponseInterface;
 use Router\RouteResult;
 use Throwable;
 
@@ -75,10 +75,6 @@ final class DispatchListener extends AbstractListenerAggregate
             );
         }
 
-        // if ($action instanceof InjectAppEventInterface) {
-        //     $action->setEvent($event);
-        // }
-
         $request = $event->getRequest();
         $response = $event->getResponse();
         $caughtException = null;
@@ -100,7 +96,7 @@ final class DispatchListener extends AbstractListenerAggregate
                 $return = $event->getResult();
             }
         }
-        return $this->complete($return, $event);
+        return $this->completeDispatch($return, $event);
     }
 
     protected function marshalActionNotFoundEvent(
@@ -118,23 +114,23 @@ final class DispatchListener extends AbstractListenerAggregate
         }
     }
 
-    protected function complete(mixed $return, AppEvent $event) // runs to here
+    protected function completeDispatch(?ResponseInterface $return, AppEvent $event)
     {
         $request = $event->getRequest();
-        if (! $return instanceof ModelInterface) {
+        // if (! $return instanceof ModelInterface) {
 
-            $model = $event->getTemplate();
+        //     $model = $event->getTemplate();
 
-            if (ArrayUtils::hasStringKeys($return)) {
-                $container = $request->getAttribute(ContextInterface::class);
-                $container = $container->merge($return);
-                $request   = $request->withAttribute(ContextInterface::class, $container);
-                $event->setRequest($request);
-            }
-            $model->setVariables($container->mergeFortemplate($return));
-            $event->setResult($model);
-            return $model;
-        }
+        //     if (ArrayUtils::hasStringKeys($return)) {
+        //         $container = $request->getAttribute(ContextInterface::class);
+        //         $container = $container->merge($return);
+        //         $request   = $request->withAttribute(ContextInterface::class, $container);
+        //         $event->setRequest($request);
+        //     }
+        //     $model->setVariables($container->mergeFortemplate($return));
+        //     $event->setResult($model);
+        //     return $model;
+        // }
         $event->setResult($return);
         return $return;
     }

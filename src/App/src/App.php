@@ -24,7 +24,6 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
     private $defaultListeners = [
         Listeners\RouteListener::class, // run this here since we need to step out pre routing for the previous listeners.
         Listeners\DispatchListener::class,
-        Listeners\RenderListener::class,
         Listeners\EmitResponseListener::class,
     ];
 
@@ -62,7 +61,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
 
         $propagationCheck = static function($result) use($event): bool {
             // we use ModelInterface here so that the actions can return a view model, we then set it on the event for EmitResponse
-            if ($result instanceof ModelInterface) {
+            if ($result instanceof ResponseInterface) {
                 return true;
             }
             if ($event->isError() || $event->isException()) {
@@ -71,24 +70,26 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
             return false;
         };
 
-        // Trigger route event
+        // Set Event context
         $event->setRequest($this->getRequest());
         $event->setResponse($this->getResponse());
         $event->setName(AppEvent::EVENT_ROUTE);
         $event->stopPropagation(false);
+        // Trigger route event
         $result = $events->triggerEventUntil($propagationCheck, $event);
         if ($result->stopped()) {
             $response = $result->last();
-            if ($response instanceof ModelInterface) {
+            if ($response instanceof ResponseInterface) {
                 $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
                 $event->setTarget($this);
-                $event->setTemplate($response);
+                $event->setResponse($response);
                 $event->stopPropagation(false);
                 $events->triggerEvent($event);
                 return $this;
             }
         }
 
+        // If an error or exception is encountered complete the request
         if ($event->getError() || $event->getException()) {
             return $this->completeRequest($event);
         }
@@ -112,9 +113,9 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $event->setTarget($this);
 
         // Trigger render event
-        $event->setName(AppEvent::EVENT_RENDER);
-        $event->stopPropagation(false);
-        $events->triggerEvent($event);
+        // $event->setName(AppEvent::EVENT_RENDER);
+        // $event->stopPropagation(false);
+        // $events->triggerEvent($event);
 
         // Trigger the emit response event, actually sends the response to the client
         $event->setName(AppEvent::EVENT_EMIT_RESPONSE);

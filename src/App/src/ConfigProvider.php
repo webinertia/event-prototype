@@ -8,9 +8,6 @@ use Http\Container\Psr7AwareDelegatorFactory;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
-use Psr\Http\Message\ServerRequestFactoryInterface;
-use Template\Container\TemplateAwareInitializer;
-
 
 final class ConfigProvider
 {
@@ -43,16 +40,12 @@ final class ConfigProvider
                 Listeners\DispatchListener::class     => Container\DispatchListenerFactory::class,
                 Listeners\EmitResponseListener::class => Container\EmitResponseListenerFactory::class,
                 Listeners\NotFoundListener::class     => Container\NotFoundListenerFactory::class,
-                Listeners\RenderListener::class       => Container\RenderListenerFactory::class,
                 Listeners\RouteListener::class        => Container\RouteListenerFactory::class,
             ],
             'delegators' => [
                 App::class => [
                     Psr7AwareDelegatorFactory::class,
                 ],
-            ],
-            'initializers' => [
-                TemplateAwareInitializer::class,
             ],
         ];
     }
