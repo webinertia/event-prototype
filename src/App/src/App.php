@@ -22,15 +22,10 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
     use Psr7AwareTrait;
 
     private $defaultListeners = [
-        //Listeners\BoardIndexListener::class,
-        //Listeners\MessageIndexListener::class,
-        //Listeners\DisplayListener::class,
         Listeners\RouteListener::class, // run this here since we need to step out pre routing for the previous listeners.
         Listeners\DispatchListener::class,
         Listeners\RenderListener::class,
         Listeners\EmitResponseListener::class,
-        //Listeners\ActionListener::class,
-        //Listeners\NotFoundListener::class,
     ];
 
     public function __construct(
@@ -50,7 +45,6 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
 
         $this->event->setTarget($this);
         $this->event->setApp($this);
-        //$this->event->setRequest($this->request);
         // setup the bootstrap event in case any mods needs to get in on the action
         $this->event->setName(AppEvent::EVENT_BOOTSTRAP);
         $this->event->stopPropagation(false);
@@ -104,16 +98,6 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $event->stopPropagation(false);
         $result = $events->triggerEventUntil($propagationCheck, $event);
 
-        // Emit response
-        // $response = $result->last();
-        // if ($response instanceof ModelInterface) {
-        //     $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
-        //     $event->setTarget($this);
-        //     $event->setTemplate($response);
-        //     $event->stopPropagation(false);
-        //     $events->triggerEvent($event);
-        //     return $this;
-        // }
         return $this->completeRequest($event);
     }
 
@@ -127,10 +111,12 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $events = $this->getEventManager();
         $event->setTarget($this);
 
+        // Trigger render event
         $event->setName(AppEvent::EVENT_RENDER);
         $event->stopPropagation(false);
         $events->triggerEvent($event);
 
+        // Trigger the emit response event, actually sends the response to the client
         $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
         $event->stopPropagation(false);
         $events->triggerEvent($event);
