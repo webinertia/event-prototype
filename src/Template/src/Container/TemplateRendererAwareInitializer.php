@@ -6,18 +6,18 @@ namespace Template\Container;
 
 use Laminas\ServiceManager\Initializer\InitializerInterface;
 use Psr\Container\ContainerInterface;
-use Template\TemplateAwareInterface;
+use Template\TemplateRendererAwareInterface;
 use Template\TemplateRendererInterface;
 
-final class TemplateAwareInitializer implements InitializerInterface
+final class TemplateRendererAwareInitializer implements InitializerInterface
 {
     public function __invoke(ContainerInterface $container, $instance)
     {
-        if (! $instance instanceof TemplateAwareInterface) {
+        if (! $instance instanceof TemplateRendererAwareInterface) {
             return;
         }
         // todo: add some defense here
-        $instance->setTemplate($container->get(TemplateRendererInterface::class));
+        $instance->setRenderer($container->get(TemplateRendererInterface::class));
         return $instance;
     }
 }

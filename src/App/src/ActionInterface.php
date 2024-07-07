@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
-use Laminas\View\Model\ModelInterface;
+use Psr\Http\Message\ResponseInterface;
 
 interface ActionInterface
 {
-    public function __invoke(?string $subAction = null): ModelInterface;
+    public function __invoke(?string $subAction = null): ResponseInterface;
     public function onDispatch(AppEvent $event);
 }

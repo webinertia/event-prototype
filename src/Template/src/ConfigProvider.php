@@ -28,10 +28,10 @@ final class ConfigProvider
                 TemplateRendererInterface::class => TemplateRenderer::class,
             ],
             'factories' => [
-                HelperPluginManager::class       => Container\HelperPluginManagerFactory::class,
-                TemplateRenderer::class          => Container\TemplateRendererFactory::class,
-                TemplateResolverInterface::class => Container\TemplateResolverFactory::class,
-                PhpRendererStrategy::class       => Container\PhpRendererStrategyFactory::class,
+                HelperPluginManager::class         => Container\HelperPluginManagerFactory::class,
+                TemplateRenderer::class            => Container\TemplateRendererFactory::class,
+                TemplateResolverInterface::class   => Container\TemplateResolverFactory::class,
+                PhpRendererStrategy::class         => Container\PhpRendererStrategyFactory::class,
                 NamespacedPathStackResolver::class => Container\NamespacedPathStackResolverFactory::class,
             ],
         ];
@@ -41,7 +41,7 @@ final class ConfigProvider
     {
         return [
             'initializers' => [
-                Container\TemplateAwareInitializer::class,
+                Container\TemplateRendererAwareInitializer::class,
             ],
         ];
     }

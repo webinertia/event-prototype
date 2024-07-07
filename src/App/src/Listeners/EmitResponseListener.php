@@ -25,7 +25,7 @@ final class EmitResponseListener extends AbstractListenerAggregate
     public function onEmitResponse(AppEvent $event)
     {
         /** @var ResponseInterface */
-        $response = $event->getResponse();
+        $response = $event->getResult();
         $this->emitter->emit($response);
     }
 }
