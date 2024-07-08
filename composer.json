@@ -19,5 +19,16 @@
             "Template\\": "src/Template/src/",
             "User\\": "src/User/src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SmfTest\\App\\": "test/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10.5.5"
+    },
+    "scripts": {
+        "test": "phpunit --colors=always"
     }
 }

@@ -8,6 +8,7 @@ use Http\Psr7AwareInterface;
 use Http\Psr7AwareTrait;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerAwareTrait;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -28,7 +29,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
     ];
 
     public function __construct(
-        private ServiceManager $serviceManager,
+        private ServiceLocatorInterface $serviceManager,
         private AppEvent $event = new AppEvent()
     ) {
     }
@@ -112,15 +113,26 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $events = $this->getEventManager();
         $event->setTarget($this);
 
-        // Trigger render event
-        // $event->setName(AppEvent::EVENT_RENDER);
-        // $event->stopPropagation(false);
-        // $events->triggerEvent($event);
-
         // Trigger the emit response event, actually sends the response to the client
         $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
         $event->stopPropagation(false);
         $events->triggerEvent($event);
+        return $this;
+    }
+
+    public function getDefaultListeners(): array
+    {
+        return $this->defaultListeners;
+    }
+
+    public function getEvent(): AppEvent
+    {
+        return $this->event;
+    }
+
+    public function setEvent(AppEvent $event): self
+    {
+        $this->event = $event;
         return $this;
     }
 }

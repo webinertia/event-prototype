@@ -10,7 +10,7 @@ use Template\TemplateModel;
 use User\Entity\User;
 use User\UserInterface;
 
-final class LoginAction extends AbstractAction
+class LoginAction extends AbstractAction
 {
     public function __construct(
         private UserInterface&User $user
