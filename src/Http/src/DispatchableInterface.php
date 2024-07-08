@@ -12,5 +12,5 @@ interface DispatchableInterface
     /**
      * Dispatch a request
      */
-    public function dispatch(ServerRequestInterface $request, ?ResponseInterface $response = null);
+    public function dispatch(ServerRequestInterface $request, ?ResponseInterface $response = null): ResponseInterface;
 }

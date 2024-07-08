@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Router\RouteResult;
 use Throwable;
 
-final class AppEvent extends Event
+class AppEvent extends Event
 {
     final public const EVENT_BOOTSTRAP      = 'bootstrap';
     final public const EVENT_ROUTE          = 'route';

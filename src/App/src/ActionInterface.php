@@ -9,5 +9,5 @@ use Psr\Http\Message\ResponseInterface;
 interface ActionInterface
 {
     public function __invoke(?string $subAction = null): ResponseInterface;
-    public function onDispatch(AppEvent $event);
+    public function onDispatch(AppEvent $event): ResponseInterface;
 }
