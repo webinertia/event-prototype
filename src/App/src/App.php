@@ -10,17 +10,18 @@ use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerAwareTrait;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
-use Template\TemplateManager;
 
 use function array_merge;
 use function array_unique;
+use function class_exists;
 
 final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareInterface
 {
     use EventManagerAwareTrait;
     use Psr7AwareTrait;
+
+    private array $config;
 
     private $defaultListeners = [
         Listeners\RouteListener::class, // run this here since we need to step out pre routing for the previous listeners.
@@ -36,6 +37,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
 
     private function bootstrap(array $listeners = []): self
     {
+        $this->getConfig();
         $eventManager = $this->getEventManager();
         $listeners    = array_unique(array_merge($this->defaultListeners, $listeners));
         // lets setup and attach our default listeners and any mod listeners for authors savy enough to use the 'listeners' key
@@ -117,6 +119,10 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
         $event->stopPropagation(false);
         $events->triggerEvent($event);
+        if ($this->config['debug'] && class_exists(\Tracy\Debugger::class)) {
+            $runtime = \Tracy\Debugger::timer('total-runtime');
+            \Tracy\Debugger::barDump(['total-runtime' => $runtime]);
+        }
         return $this;
     }
 
@@ -134,5 +140,11 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
     {
         $this->event = $event;
         return $this;
+    }
+
+    public function getConfig(): array
+    {
+        $this->config = $this->getServiceManager()->get('config');
+        return $this->config;
     }
 }

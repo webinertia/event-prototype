@@ -14,8 +14,8 @@ abstract class AbstractAction extends InternalAbstractAction
     public function onDispatch(AppEvent $event): ResponseInterface
     {
         $routeResult = $event->getRouteResult();
-        $subAction = $routeResult->getParam('query')['sa'] ?? null;
-        $result = $this($subAction);
+        $subAction   = $routeResult->getParam('query')['sa'] ?? null;
+        $result      = $this($subAction);
         $event->setResult($result);
         return $result;
     }
