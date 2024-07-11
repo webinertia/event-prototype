@@ -54,17 +54,36 @@ declare(strict_types=1);
                                 <span class="text-menu"></span><!--  -->
                             </a>
                         </li>
+                        <li class="button_signup">
+                            <a href="/?action=signup" class="active" title="Lang::$txt['register']"> <!-- see @original line 356 for conditionals -->
+                                <span class="main_icons signup"></span>
+                                <span class="text-label">Lang::$txt['register']</span>
+                            </a>
+                        </li>
+                        <li>
+                            <!-- welcome guest, see @original line 366 -->
+                        </li>
                     </ul>
+                    <div class="random_news">
+                        <h2>Lang::$txt['news']</h2>
+                        <p>Utils::$context['random_news_line']</p><!-- see @original line 383 for conditional -->
+                    </div>
                 </div>
-
-<?php
-echo $this->content;
-?>
-
-                    </div><!-- #main_content_section -->
-                </div><!-- #content_section -->
-            </div><!-- #wrapper -->
-        </div><!-- #footerfix -->
+            </div>
+        </header>
+        <?php
+        // show menu here
+        ?>
+        <div id="wrapper">
+            <div id="content_section">
+                <div id="main_content_section">
+                    <?php
+                    echo $this->content;
+                    ?>
+                </div><!-- #main_content_section -->
+            </div><!-- #content_section -->
+        </div><!-- #wrapper -->
+    </div><!-- #footerfix -->
         <footer id="footer">
             <div class="inner_wrap">
                 <ul>
