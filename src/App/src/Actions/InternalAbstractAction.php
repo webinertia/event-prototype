@@ -7,6 +7,7 @@ namespace App\Actions;
 use App\ActionInterface;
 use App\AppEvent;
 use Http\DispatchableInterface;
+use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerAwareTrait;
 use Laminas\View\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -14,8 +15,11 @@ use Psr\Http\Message\ServerRequestInterface;
 use Template\TemplateRendererAwareInterface;
 use Template\TemplateRendererAwareTrait;
 
-abstract class InternalAbstractAction implements ActionInterface, DispatchableInterface, TemplateRendererAwareInterface
-{
+abstract class InternalAbstractAction implements
+ActionInterface,
+DispatchableInterface,
+EventManagerAwareInterface,
+TemplateRendererAwareInterface {
     use EventManagerAwareTrait;
     use TemplateRendererAwareTrait;
 
