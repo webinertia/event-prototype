@@ -4,7 +4,21 @@ declare(strict_types=1);
 <!DOCTYPE html>
 <html>
     <head>
-
+    <?php
+        $this->headMeta()
+        ->setCharSet('UTF-8')
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+        ?>
+        <?= $this->headLink(
+            [
+                'rel'  => 'shortcut icon',
+                'type' => 'image/vnd.microsoft.icon',
+                'href' => $this->basePath() . '/images/favicon.ico',
+            ]
+        )
+        ->appendStylesheet($this->basePath('themes/default/css/index.css')); // this may be removed
+        ?>
     </head>
     <body id="browser_body_id" class="action_current_action"><!-- browser_body_id, current_action are from $context -->
         <div id="footerfix">

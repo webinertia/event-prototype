@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Template;
 
+use Assetic\AssetManager;
+use Laminas\View\Helper\BasePath;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Strategy\PhpRendererStrategy;
 
@@ -17,6 +20,7 @@ final class ConfigProvider
             'template_helpers'       => $this->getHelpers(),
             'template_helper_config' => $this->getHelperConfig(), // seed the template helpers with config
             'templates'              => $this->getTemplates(),
+            'listeners'              => $this->getListenerConfig(),
         ];
     }
 
@@ -28,6 +32,8 @@ final class ConfigProvider
                 TemplateRendererInterface::class => TemplateRenderer::class,
             ],
             'factories' => [
+                AssetManager::class                => Container\AssetManagerFactory::class,
+                AssetListener::class               => Container\AssetListenerFactory::class,
                 HelperPluginManager::class         => Container\HelperPluginManagerFactory::class,
                 TemplateRenderer::class            => Container\TemplateRendererFactory::class,
                 TemplateResolverInterface::class   => Container\TemplateResolverFactory::class,
@@ -48,13 +54,30 @@ final class ConfigProvider
 
     public function getHelpers(): array
     {
-        return [];
+        return [
+            'delegators' => [
+                Doctype::class => [
+                    Helper\Container\DocTypeDelegatorFactory::class,
+                ],
+            ],
+            'factories'  => [
+                BasePath::class => Helper\Container\BasePathFactory::class,
+            ],
+        ];
     }
 
     public function getHelperConfig(): array
     {
         return [
-            'doctype' => 'HTML5',
+            'doctype'   => 'HTML5',
+            'base_path' => '/',
+        ];
+    }
+
+    public function getListenerConfig(): array
+    {
+        return [
+            AssetListener::class,
         ];
     }
 
