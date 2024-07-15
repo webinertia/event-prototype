@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SmfTest\App\Actions;
 
 use App\Actions\BoardIndexAction;
+use App\AppEvent;
 use Psr\Http\Message\ResponseInterface;
 
 class BoardIndexActionTest extends AbstractActionTestCase
@@ -21,4 +22,9 @@ class BoardIndexActionTest extends AbstractActionTestCase
         $response = $action();
         $this->assertInstanceOf(ResponseInterface::class, $response);
     }
+
+    // public function testActionIsDispatchable()
+    // {
+    //     $response = $this->action->onDispatch(new AppEvent())
+    // }
 }

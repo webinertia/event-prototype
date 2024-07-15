@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace App\Listeners;
 
 use App\AppEvent;
-use App\DispatchableInterface;
-use App\DispatchableInterfaceTrait;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventManagerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Template\TemplateAwareInterface;
-use Template\TemplateAwareTrait;
+use Template\TemplateRendererAwareInterface;
+use Template\TemplateRendererAwareTrait;
 
 use const PHP_INT_MIN;
 
-final class NotFoundListener extends AbstractListenerAggregate implements DispatchableInterface, TemplateAwareInterface
+final class NotFoundListener extends AbstractListenerAggregate implements TemplateRendererAwareInterface
 {
-    use DispatchableInterfaceTrait;
-    use TemplateAwareTrait;
+    use TemplateRendererAwareTrait;
 
     private string $notFound = 'error:404';
 
@@ -30,13 +27,14 @@ final class NotFoundListener extends AbstractListenerAggregate implements Dispat
 
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(AppEvent::EVENT_DISPATCH, [$this, 'onDispatch'], PHP_INT_MIN);
+        // attach at the lowest possible priority to allow other listeners to intervene
+        $this->listeners[] = $events->attach(AppEvent::EVENT_DISPATCH_ERROR, [$this, 'onDispatch'], PHP_INT_MIN);
     }
 
     public function onDispatch(AppEvent $event): ?ResponseInterface
     {
         $message  = $event->getError();
-        $template = $this->getTemplate();
+        $template = $this->getRenderer();
         return new HtmlResponse($template->render($this->notFound, ['message' => $message]), 404);
     }
 }

@@ -1,9 +1,133 @@
 <?php
-use Tracy\Debugger;
 
-//Debugger::renderLoader();
+declare(strict_types=1);
+
+use Laminas\Form\View\HelperTrait;
+
+/**
+ * @var PhpRenderer|HelperTrait $this
+ */
 ?>
-<b>layout file loading</b>
-<?php
-echo $this->content;
-?>
+<?=$this->doctype();?>
+<html>
+    <head>
+    <?php
+        $this->headMeta()
+        ->setCharSet('UTF-8')
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+        ?>
+        <?= $this->headLink(
+            [
+                'rel'  => 'shortcut icon',
+                'type' => 'image/vnd.microsoft.icon',
+                'href' => $this->basePath('favicon.ico'),
+            ]
+        )
+        ->appendStylesheet($this->basePath('themes/default/css/variables.css'))
+        ->appendStylesheet($this->basePath('themes/default/css/index.css')) // this may be removed
+        ->appendStylesheet($this->basePath('themes/default/css/icons.css'))
+        ->appendStylesheet($this->basePath('themes/default/css/responsive.css'))
+        ->appendStylesheet($this->basePath('themes/default/css/fontawesome.min.css'));
+        ?>
+        <?php
+        // script files
+        $this->inlineScript()
+        ->appendFile($this->basePath())
+        ?>
+    </head>
+    <body id="browser_body_id" class="action_current_action"><!-- browser_body_id, current_action are from $context -->
+        <div id="footerfix">
+            <header id="header">
+                <div class="inner_wrap">
+                    <h1 class="forumtitle">
+                        <a id="top" href="/">
+                            <img id="smflogo" src="<?=$this->basePath('themes/default/images/smflogo.svg');?>" alt="Simple Machines Forum" title="Simple Machines Forum"><!-- Theme::$current->settings['images_url'] or Utils::$context see @original-->
+                        </a>
+                    </h1>
+                <div class="user_panel"><!-- output user panel here only for logged in users see @original -->
+                    <form id="languages_form" method="get">
+                        <!-- replicate form using laminas-form/limatus -->
+                    </form>
+                    <ul id="top_info">
+                        <li>
+                            <a id="pm_menu-top" title="pm_short" href="/?action=profile&area=showalerts&u=User::$me->id"><!-- see @original for active state -->
+                                <span class="main_icons inbox"></span>
+                                <span class="text-label">Lang::$txt['pm_short']</span>
+                                <span class="amt">User::$me->unread_message</span>
+                            </a>
+                            <div id="pm_menu" class="top_menu scrollable"></div>
+                        </li>
+                        <li>
+                            <a id="profile_menu_top" href="/?action=profile" title="Lang::$txt['profile']">
+                                User::$me->avatar['image']
+                                <span class="text-label">User::$me->name</span>
+                            </a>
+                            <div id="profile_menu" class="top_menu"></div>
+                        </li>
+                        <li id="nojs_logout" class="button_logout">
+                            <a href="/?action=logout"><!-- see @original for additional values here -->
+                                <span class="main_icons logout"></span>
+                                <span class="text-label">Lang::$txt['logout']</span>
+                            </a>
+                            <script>document.getElementById("nojs_logout").style.display = "none";</script>
+                        </li>
+                        <!-- <li class="welcome">
+                            logged in user welcome wrap in conditional
+                        </li> -->
+                        <li class="welcome"><!-- guest login -->
+                            <!-- see @original  -->
+                        </li>
+                        <li class="button_login">
+                            <a href="/?action=login"><!-- see @original line 347 for details no idea why I didnt include lines numbers sooner errrr-->
+                                <span class="main_icons login"></span>
+                                <span class="text-menu"></span><!--  -->
+                            </a>
+                        </li>
+                        <li class="button_signup">
+                            <a href="/?action=signup" class="active" title="Lang::$txt['register']"> <!-- see @original line 356 for conditionals -->
+                                <span class="main_icons signup"></span>
+                                <span class="text-label">Lang::$txt['register']</span>
+                            </a>
+                        </li>
+                        <li>
+                            <!-- welcome guest, see @original line 366 -->
+                        </li>
+                    </ul>
+                    <div class="random_news">
+                        <h2>Lang::$txt['news']</h2>
+                        <p>Utils::$context['random_news_line']</p><!-- see @original line 383 for conditional -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <?php
+        // show menu here
+        ?>
+        <div id="wrapper">
+            <div id="content_section">
+                <div id="main_content_section">
+                    <?php
+                    echo $this->content;
+                    ?>
+                </div><!-- #main_content_section -->
+            </div><!-- #content_section -->
+        </div><!-- #wrapper -->
+    </div><!-- #footerfix -->
+        <footer id="footer">
+            <div class="inner_wrap">
+                <ul>
+                    <li class="copyright">Copyright placeholder</li>
+                </ul>
+                <ul>
+                    <li class="helplinks">
+                        <a href="/?action=help"><i class="fa-solid fa-circle-question"></i></a>
+                        <a href="/?action=agreement"><i class="fa-solid fa-list-ul"></i></a>
+                        <a href="#header">Go Up &#9650;</a>
+                    </li>
+                </ul>
+                <p>Show Load time placeholder</p>
+            </div>
+        </footer><!-- #footer -->
+    </body>
+</html>

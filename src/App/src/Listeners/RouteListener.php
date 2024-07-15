@@ -23,7 +23,7 @@ final class RouteListener extends AbstractListenerAggregate
         $this->listeners[] = $events->attach(AppEvent::EVENT_ROUTE, [$this, 'onRoute']);
     }
 
-    public function onRoute(AppEvent $event): RouteResult|false
+    public function onRoute(AppEvent $event)
     {
         $request     = $event->getRequest();
         $routeResult = $this->router->match($request);
