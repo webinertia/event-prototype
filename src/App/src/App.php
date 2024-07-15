@@ -24,6 +24,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
     private array $config;
 
     private $defaultListeners = [
+        Listeners\NotFoundListener::class,
         Listeners\RouteListener::class, // run this here since we need to step out pre routing for the previous listeners.
         Listeners\DispatchListener::class,
         Listeners\EmitResponseListener::class,
@@ -63,7 +64,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $event = $this->event;
 
         $propagationCheck = static function($result) use($event): bool {
-            // we use ModelInterface here so that the actions can return a view model, we then set it on the event for EmitResponse
+            // We stop propagation when we get a ResponseInterface as a return
             if ($result instanceof ResponseInterface) {
                 return true;
             }
@@ -82,27 +83,26 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         $result = $events->triggerEventUntil($propagationCheck, $event);
         if ($result->stopped()) {
             $response = $result->last();
-            if ($response instanceof ResponseInterface) {
-                $event->setName(AppEvent::EVENT_EMIT_RESPONSE);
+            if ($response instanceof ResponseInterface) { // if we have a ResponseInterface here we had an error/exception so complete the request
                 $event->setTarget($this);
                 $event->setResponse($response);
+                $event->setResult($response); // onEmitResponse expects the event result to be the response instance to emit
                 $event->stopPropagation(false);
-                $events->triggerEvent($event);
-                return $this;
+                return $this->completeRequest($event);
             }
         }
 
         // If an error or exception is encountered complete the request
-        if ($event->getError() || $event->getException()) {
-            return $this->completeRequest($event);
-        }
+        // if ($event->getError() || $event->getException()) {
+        //     return $this->completeRequest($event);
+        // }
 
         // Trigger dispatch event
         $event->setName(AppEvent::EVENT_DISPATCH);
         $event->stopPropagation(false);
         $result = $events->triggerEventUntil($propagationCheck, $event);
 
-        return $this->completeRequest($event);
+        return $this->completeRequest($event); // the event should have the correct state set so just pass it
     }
 
     public function getServiceManager(): ServiceManager
@@ -126,7 +126,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
         return $this;
     }
 
-    public function getDefaultListeners(): array
+    public function getDefaultListeners(): array // for unit testing
     {
         return $this->defaultListeners;
     }

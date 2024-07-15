@@ -1,7 +1,14 @@
 <?php
+
 declare(strict_types=1);
+
+use Laminas\Form\View\HelperTrait;
+
+/**
+ * @var PhpRenderer|HelperTrait $this
+ */
 ?>
-<!DOCTYPE html>
+<?=$this->doctype();?>
 <html>
     <head>
     <?php
@@ -14,10 +21,19 @@ declare(strict_types=1);
             [
                 'rel'  => 'shortcut icon',
                 'type' => 'image/vnd.microsoft.icon',
-                'href' => $this->basePath() . '/images/favicon.ico',
+                'href' => $this->basePath('favicon.ico'),
             ]
         )
-        ->appendStylesheet($this->basePath('themes/default/css/index.css')); // this may be removed
+        ->appendStylesheet($this->basePath('themes/default/css/variables.css'))
+        ->appendStylesheet($this->basePath('themes/default/css/index.css')) // this may be removed
+        ->appendStylesheet($this->basePath('themes/default/css/icons.css'))
+        ->appendStylesheet($this->basePath('themes/default/css/responsive.css'))
+        ->appendStylesheet($this->basePath('themes/default/css/fontawesome.min.css'));
+        ?>
+        <?php
+        // script files
+        $this->inlineScript()
+        ->appendFile($this->basePath())
         ?>
     </head>
     <body id="browser_body_id" class="action_current_action"><!-- browser_body_id, current_action are from $context -->
@@ -26,7 +42,7 @@ declare(strict_types=1);
                 <div class="inner_wrap">
                     <h1 class="forumtitle">
                         <a id="top" href="/">
-                            <img id="smflogo" src="/smflogo.svg" alt="Simple Machines Forum" title="Simple Machines Forum"><!-- Theme::$current->settings['images_url'] or Utils::$context see @original-->
+                            <img id="smflogo" src="<?=$this->basePath('themes/default/images/smflogo.svg');?>" alt="Simple Machines Forum" title="Simple Machines Forum"><!-- Theme::$current->settings['images_url'] or Utils::$context see @original-->
                         </a>
                     </h1>
                 <div class="user_panel"><!-- output user panel here only for logged in users see @original -->

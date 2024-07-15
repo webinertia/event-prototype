@@ -29,15 +29,15 @@ final class AssetListener extends AbstractListenerAggregate
 
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(AppEvent::EVENT_BOOTSTRAP, [$this, 'onBootstrap']);
+        $this->listeners[] = $events->attach(AppEvent::EVENT_BOOTSTRAP, [$this, 'onBootstrap'], $priority);
     }
 
     public function onBootstrap(AppEvent $event)
     {
-        $webPath = realpath(self::WEB_PATH);
-        if (! isset($this->config['assets'])) {
-            $writer = new AssetWriter($webPath);
-            $writer->writeManagerAssets($this->am);
-        }
+        // $webPath = realpath(self::WEB_PATH);
+        // if (! isset($this->config['assets'])) {
+        //     $writer = new AssetWriter($webPath);
+        //     $writer->writeManagerAssets($this->am);
+        // }
     }
 }

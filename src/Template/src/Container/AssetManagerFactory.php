@@ -22,12 +22,19 @@ final class AssetManagerFactory
 {
     private const ASSET_BASE_PATH  = __DIR__ . '/../../assets/';
     private const ASSET_CACHE_PATH = __DIR__ . '/../../../../data/cache/assets';
+    private const CSS_PATH      = 'css/style.css';
+    private const SCRIPT_PATH   = 'scripts/*.js';
+    private const WEB_PATH      = __DIR__ . '/../../../public/themes/default';
 
     public function __invoke(ContainerInterface $container): AssetManager
     {
         $path = realpath(self::ASSET_BASE_PATH) . DIRECTORY_SEPARATOR;
         $am = new AssetManager();
-        $am->set('style', new GlobAsset($path . 'css' . DIRECTORY_SEPARATOR . '*'));
+        $css = new GlobAsset(
+            $path . 'css' . DIRECTORY_SEPARATOR . '*',
+        );
+        $css->setTargetPath(self::CSS_PATH);
+        $am->set('css', $css);
         //$am->set('script', new GlobAsset($path . 'scripts' . DIRECTORY_SEPARATOR . '*'));
         return $am;
     }

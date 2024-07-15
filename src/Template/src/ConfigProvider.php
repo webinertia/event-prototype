@@ -32,8 +32,8 @@ final class ConfigProvider
                 TemplateRendererInterface::class => TemplateRenderer::class,
             ],
             'factories' => [
-                AssetManager::class                => Container\AssetManagerFactory::class,
-                AssetListener::class               => Container\AssetListenerFactory::class,
+                //AssetManager::class                => Container\AssetManagerFactory::class,
+                //AssetListener::class               => Container\AssetListenerFactory::class,
                 HelperPluginManager::class         => Container\HelperPluginManagerFactory::class,
                 TemplateRenderer::class            => Container\TemplateRendererFactory::class,
                 TemplateResolverInterface::class   => Container\TemplateResolverFactory::class,
@@ -77,7 +77,7 @@ final class ConfigProvider
     public function getListenerConfig(): array
     {
         return [
-            AssetListener::class,
+            //AssetListener::class,
         ];
     }
 
