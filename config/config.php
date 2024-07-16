@@ -15,10 +15,8 @@ $cacheConfig = [
 $aggregator = new ConfigAggregator([
     \Laminas\HttpHandlerRunner\ConfigProvider::class,
     \Laminas\Diactoros\ConfigProvider::class,
-    \Webinertia\Utils\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
-
     // Default App module config
     \App\ConfigProvider::class, // adds our ConfigProvider to the ServiceManager config
     \Http\ConfigProvider::class,
@@ -36,7 +34,6 @@ $aggregator = new ConfigAggregator([
     // mod config before autoloaded dev config so the dev overrides
     new PhpFileProvider(realpath(__DIR__ . '/../') . '/src/Mod/src/*/mod.config.php'),
     new PhpFileProvider(realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'),
-
     // Load development config if it exists
     new PhpFileProvider(realpath(__DIR__) . '/development.config.php'),
 ], $cacheConfig['config_cache_path']); // provides a means to cache config in production mode

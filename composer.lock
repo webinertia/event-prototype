@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4653168506cb337551247fd9950a0541",
+    "content-hash": "17bb2e5ebf5cc8105787ec89135e28e3",
     "packages": [
         {
             "name": "assetic/framework",
@@ -1510,55 +1510,6 @@
                 }
             ],
             "time": "2021-04-19T16:34:45+00:00"
-        },
-        {
-            "name": "webinertia/webinertia-utils",
-            "version": "0.0.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webinertia/utils.git",
-                "reference": "21b56d45eecebe32dd5924129d5e54dfbc297150"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/utils/zipball/21b56d45eecebe32dd5924129d5e54dfbc297150",
-                "reference": "21b56d45eecebe32dd5924129d5e54dfbc297150",
-                "shasum": ""
-            },
-            "require": {
-                "laminas/laminas-component-installer": "^3.2.0",
-                "laminas/laminas-servicemanager": "^3.20.0",
-                "php": "~8.1.0 || ~8.2.0"
-            },
-            "type": "library",
-            "extra": {
-                "laminas": {
-                    "component": "Webinertia\\Utils",
-                    "config-provider": "Webinertia\\Utils\\ConfigProvider"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webinertia\\Utils\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Webinertia Org Utilities",
-            "homepage": "https://github.com/webinertia",
-            "keywords": [
-                "utils",
-                "webinertia"
-            ],
-            "support": {
-                "chat": "https://github.com/webinertia/modelmanager/discussions",
-                "docs": "https://github.com/webinertia/modelmanager/wiki",
-                "issues": "https://github.com/webinertia/modelmanager/issues",
-                "source": "https://github.com/webinertia/modelmanager"
-            },
-            "time": "2023-04-25T01:17:36+00:00"
         }
     ],
     "packages-dev": [
@@ -5819,7 +5770,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
 }
