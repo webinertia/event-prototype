@@ -88,6 +88,7 @@ final class DispatchListener extends AbstractListenerAggregate
 
         if ($caughtException !== null) {
             // for the moment just throw this so we can see it
+            // todo finish this so we do not have to throw the exception here
             throw $caughtException;
             $event->setName(AppEvent::EVENT_DISPATCH_ERROR);
             $event->setException($caughtException);

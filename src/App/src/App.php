@@ -65,6 +65,7 @@ final class App implements AppInterface, EventManagerAwareInterface, Psr7AwareIn
 
         $propagationCheck = static function($result) use($event): bool {
             // We stop propagation when we get a ResponseInterface as a return
+            // We stop propagation if there is an Error || Exception encountered
             if ($result instanceof ResponseInterface) {
                 return true;
             }
