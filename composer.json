@@ -2,7 +2,7 @@
     "name": "webinertia/event-prototype",
     "license": "BSD-3-Clause",
     "require": {
-        "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+        "php": "~8.2.0 || ~8.3.0",
         "laminas/laminas-component-installer": "^3.4",
         "laminas/laminas-config-aggregator": "^1.15",
         "laminas/laminas-servicemanager": "3.22.1",
