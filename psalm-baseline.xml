@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505">
+  <file src="src/App/src/ActionInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[onDispatch]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/App/src/Actions/AbstractAction.php">
+    <MissingPropertyType>
+      <code><![CDATA[$eventIdentifier]]></code>
+    </MissingPropertyType>
+    <MixedArgument>
+      <code><![CDATA[$subAction]]></code>
+    </MixedArgument>
+    <PossiblyFalseReference>
+      <code><![CDATA[getParam]]></code>
+    </PossiblyFalseReference>
+  </file>
+  <file src="src/App/src/Actions/ActionManager.php">
+    <MissingTemplateParam>
+      <code><![CDATA[ActionManager]]></code>
+    </MissingTemplateParam>
+  </file>
+  <file src="src/App/src/Actions/BoardIndexAction.php">
+    <PossiblyNullReference>
+      <code><![CDATA[render]]></code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/App/src/Actions/Container/ActionManagerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$config['action_manager']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['action_manager']]]></code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/App/src/Actions/Container/EventManagerAwareInitializer.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(EventManagerInterface::class)]]></code>
+    </MixedArgument>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[EventManagerInterface]]></code>
+    </UnnecessaryVarAnnotation>
+  </file>
+  <file src="src/App/src/Actions/Container/LoginActionFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(UserInterface::class)]]></code>
+      <code><![CDATA[$eventManager]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/App/src/Actions/DisplayAction.php">
+    <PossiblyNullReference>
+      <code><![CDATA[render]]></code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/App/src/Actions/InternalAbstractAction.php">
+    <MissingClosureParamType>
+      <code><![CDATA[$test]]></code>
+    </MissingClosureParamType>
+    <MissingConstructor>
+      <code><![CDATA[$template]]></code>
+      <code><![CDATA[$template]]></code>
+      <code><![CDATA[$template]]></code>
+      <code><![CDATA[$template]]></code>
+    </MissingConstructor>
+    <MissingPropertyType>
+      <code><![CDATA[$eventIdentifier]]></code>
+    </MissingPropertyType>
+    <MixedInferredReturnType>
+      <code><![CDATA[ResponseInterface]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[$event->getResult()]]></code>
+      <code><![CDATA[$result->last()]]></code>
+    </MixedReturnStatement>
+    <PossiblyNullReference>
+      <code><![CDATA[setName]]></code>
+    </PossiblyNullReference>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setEvent]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/App/src/Actions/LoginAction.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$this->template]]></code>
+    </ArgumentTypeCoercion>
+    <MissingReturnType>
+      <code><![CDATA[loginTwo]]></code>
+    </MissingReturnType>
+    <MixedInferredReturnType>
+      <code><![CDATA[ResponseInterface]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[match($subAction) {
+            'loginTwo' => $this->loginTwo($this->template),
+            default => new HtmlResponse(
+                $this->renderer->render(
+                    $this->template->getTemplate(),
+                    $this->template)
+            )
+        }]]></code>
+      <code><![CDATA[match($subAction) {
+            'loginTwo' => $this->loginTwo($this->template),
+            default => new HtmlResponse(
+                $this->renderer->render(
+                    $this->template->getTemplate(),
+                    $this->template)
+            )
+        }]]></code>
+    </MixedReturnStatement>
+    <PossiblyNullReference>
+      <code><![CDATA[render]]></code>
+      <code><![CDATA[render]]></code>
+    </PossiblyNullReference>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[LoginAction]]></code>
+    </PropertyNotSetInConstructor>
+    <UnusedProperty>
+      <code><![CDATA[$user]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/App/src/Actions/MessageIndexAction.php">
+    <PossiblyNullReference>
+      <code><![CDATA[render]]></code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/App/src/App.php">
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$this->serviceManager]]></code>
+    </LessSpecificReturnStatement>
+    <MissingClosureParamType>
+      <code><![CDATA[$result]]></code>
+    </MissingClosureParamType>
+    <MissingPropertyType>
+      <code><![CDATA[$defaultListeners]]></code>
+    </MissingPropertyType>
+    <MissingReturnType>
+      <code><![CDATA[run]]></code>
+    </MissingReturnType>
+    <MixedArgument>
+      <code><![CDATA[$listener]]></code>
+      <code><![CDATA[$sm->get('config')['listeners']]]></code>
+      <code><![CDATA[$this->defaultListeners]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$sm->get('config')['listeners']]]></code>
+    </MixedArrayAccess>
+    <MixedInferredReturnType>
+      <code><![CDATA[array]]></code>
+      <code><![CDATA[array]]></code>
+    </MixedInferredReturnType>
+    <MixedMethodCall>
+      <code><![CDATA[attach]]></code>
+    </MixedMethodCall>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->config]]></code>
+      <code><![CDATA[$this->defaultListeners]]></code>
+    </MixedReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[ServiceManager]]></code>
+    </MoreSpecificReturnType>
+    <PossiblyNullArgument>
+      <code><![CDATA[$this->getRequest()]]></code>
+      <code><![CDATA[$this->getResponse()]]></code>
+    </PossiblyNullArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getDefaultListeners]]></code>
+      <code><![CDATA[getEvent]]></code>
+      <code><![CDATA[run]]></code>
+      <code><![CDATA[setEvent]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[array]]></code>
+    </PossiblyUnusedReturnValue>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$config]]></code>
+      <code><![CDATA[App]]></code>
+    </PropertyNotSetInConstructor>
+    <UnusedVariable>
+      <code><![CDATA[$result]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/App/src/AppEvent.php">
+    <MissingTemplateParam>
+      <code><![CDATA[AppEvent]]></code>
+    </MissingTemplateParam>
+    <MixedInferredReturnType>
+      <code><![CDATA[?Throwable]]></code>
+      <code><![CDATA[?string]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->getParam('error')]]></code>
+      <code><![CDATA[$this->getParam('exception')]]></code>
+    </MixedReturnStatement>
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[$routeResult]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getException]]></code>
+    </PossiblyUnusedMethod>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$app]]></code>
+      <code><![CDATA[$request]]></code>
+      <code><![CDATA[$response]]></code>
+      <code><![CDATA[$routeResult]]></code>
+    </PropertyNotSetInConstructor>
+    <PropertyTypeCoercion>
+      <code><![CDATA[$request]]></code>
+    </PropertyTypeCoercion>
+  </file>
+  <file src="src/App/src/ConfigProvider.php">
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/App/src/Container/AppFactory.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$container]]></code>
+    </ArgumentTypeCoercion>
+    <MixedArgument>
+      <code><![CDATA[$eventManager]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/App/src/Container/ContextContainerFactory.php">
+    <MixedMethodCall>
+      <code><![CDATA[withAttribute]]></code>
+    </MixedMethodCall>
+    <UnusedVariable>
+      <code><![CDATA[$request]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/App/src/Container/DispatchListenerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(ActionManager::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/App/src/Container/EmitResponseListenerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(EmitterInterface::class)]]></code>
+    </MixedArgument>
+    <TooManyArguments>
+      <code><![CDATA[new EmitResponseListener(
+            $container->get(EmitterInterface::class),
+            $container->get('config')
+        )]]></code>
+    </TooManyArguments>
+  </file>
+  <file src="src/App/src/Container/EventManagerFactory.php">
+    <UnusedParam>
+      <code><![CDATA[$container]]></code>
+    </UnusedParam>
+  </file>
+  <file src="src/App/src/Container/NotFoundListenerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get('config')]]></code>
+      <code><![CDATA[$container->get(TemplateRendererInterface::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/App/src/Container/RenderListenerFactory.php">
+    <MixedInferredReturnType>
+      <code><![CDATA[RenderListener]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[new RenderListener($container->get(TemplateRendererInterface::class))]]></code>
+    </MixedReturnStatement>
+    <UndefinedClass>
+      <code><![CDATA[RenderListener]]></code>
+      <code><![CDATA[RenderListener]]></code>
+    </UndefinedClass>
+    <UnusedClass>
+      <code><![CDATA[RenderListenerFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/App/src/Container/RouteListenerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(RouterInterface::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/App/src/ContextContainer.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[count]]></code>
+      <code><![CDATA[get]]></code>
+      <code><![CDATA[has]]></code>
+      <code><![CDATA[merge]]></code>
+      <code><![CDATA[mergeForTemplate]]></code>
+      <code><![CDATA[toArray]]></code>
+      <code><![CDATA[with]]></code>
+      <code><![CDATA[without]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/App/src/Listeners/DispatchListener.php">
+    <MissingParamType>
+      <code><![CDATA[$exception]]></code>
+    </MissingParamType>
+    <MissingReturnType>
+      <code><![CDATA[completeDispatch]]></code>
+      <code><![CDATA[marshalActionNotFoundEvent]]></code>
+      <code><![CDATA[onDispatch]]></code>
+    </MissingReturnType>
+    <MixedArgument>
+      <code><![CDATA[$actionClass]]></code>
+      <code><![CDATA[$actionClass]]></code>
+      <code><![CDATA[$actionClass]]></code>
+      <code><![CDATA[$actionClass]]></code>
+      <code><![CDATA[$event::EVENT_DISPATCH]]></code>
+      <code><![CDATA[$exception]]></code>
+      <code><![CDATA[$return]]></code>
+    </MixedArgument>
+    <MixedMethodCall>
+      <code><![CDATA[dispatch]]></code>
+      <code><![CDATA[setEvent]]></code>
+    </MixedMethodCall>
+    <PossiblyUndefinedVariable>
+      <code><![CDATA[$action]]></code>
+      <code><![CDATA[$return]]></code>
+    </PossiblyUndefinedVariable>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$events]]></code>
+    </PropertyNotSetInConstructor>
+    <UndefinedDocblockClass>
+      <code><![CDATA[$request]]></code>
+    </UndefinedDocblockClass>
+    <UnevaluatedCode>
+      <code><![CDATA[$event->setException($caughtException);]]></code>
+      <code><![CDATA[$event->setName(AppEvent::EVENT_DISPATCH_ERROR);]]></code>
+      <code><![CDATA[$return = $app->getEventManager()->triggerEvent($event)->last();]]></code>
+      <code><![CDATA[if (! $return) {
+                $return = $event->getResult();
+            }]]></code>
+    </UnevaluatedCode>
+    <UnusedParam>
+      <code><![CDATA[$actionName]]></code>
+      <code><![CDATA[$app]]></code>
+      <code><![CDATA[$type]]></code>
+    </UnusedParam>
+    <UnusedVariable>
+      <code><![CDATA[$request]]></code>
+      <code><![CDATA[$request]]></code>
+      <code><![CDATA[$return]]></code>
+      <code><![CDATA[$return]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/App/src/Listeners/EmitResponseListener.php">
+    <MissingReturnType>
+      <code><![CDATA[onEmitResponse]]></code>
+    </MissingReturnType>
+  </file>
+  <file src="src/App/src/Listeners/NotFoundListener.php">
+    <PossiblyNullReference>
+      <code><![CDATA[render]]></code>
+    </PossiblyNullReference>
+    <UnusedProperty>
+      <code><![CDATA[$config]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/App/src/Listeners/RouteListener.php">
+    <MissingReturnType>
+      <code><![CDATA[onRoute]]></code>
+    </MissingReturnType>
+    <MixedMethodCall>
+      <code><![CDATA[getEventManager]]></code>
+      <code><![CDATA[last]]></code>
+      <code><![CDATA[triggerEvent]]></code>
+    </MixedMethodCall>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[getEventManager]]></code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyNullReference>
+      <code><![CDATA[getEventManager]]></code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/App/src/Listeners/TracyDebugListener.php">
+    <UnusedClass>
+      <code><![CDATA[TracyDebugListener]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Http/src/ConfigProvider.php">
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Http/src/Container/EmitterFactory.php">
+    <UnusedParam>
+      <code><![CDATA[$container]]></code>
+    </UnusedParam>
+  </file>
+  <file src="src/Http/src/Container/Psr7AwareDelegatorFactory.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[?Psr7AwareInterface]]></code>
+    </InvalidNullableReturnType>
+    <MixedArgument>
+      <code><![CDATA[$container->get(ResponseInterface::class)]]></code>
+      <code><![CDATA[$container->get(ServerRequestInterface::class)]]></code>
+    </MixedArgument>
+    <NullableReturnStatement>
+      <code><![CDATA[null]]></code>
+    </NullableReturnStatement>
+  </file>
+  <file src="src/Http/src/Container/RequestAwareDelegatorFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(ServerRequestInterface::class)]]></code>
+    </MixedArgument>
+    <MixedInferredReturnType>
+      <code><![CDATA[__invoke]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[$instance]]></code>
+    </MixedReturnStatement>
+    <UnusedClass>
+      <code><![CDATA[RequestAwareDelegatorFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Http/src/Container/ResponseFactory.php">
+    <MixedInferredReturnType>
+      <code><![CDATA[ResponseInterface]]></code>
+    </MixedInferredReturnType>
+    <MixedMethodCall>
+      <code><![CDATA[createResponse]]></code>
+    </MixedMethodCall>
+    <MixedReturnStatement>
+      <code><![CDATA[$factory->createResponse()]]></code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Http/src/DispatchableInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[dispatch]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Mod/src/ConfigProvider.php">
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Mod/src/LoginMod/Actions/CustomAction.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[CustomAction]]></code>
+    </MethodSignatureMismatch>
+    <UnusedProperty>
+      <code><![CDATA[$tmpl]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/Mod/src/LoginMod/Entity/LoginThingy.php">
+    <MissingPropertyType>
+      <code><![CDATA[$thingOne]]></code>
+      <code><![CDATA[$thingTwo]]></code>
+    </MissingPropertyType>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$thingOne]]></code>
+      <code><![CDATA[$thingTwo]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="src/Mod/src/LoginMod/Listener.php">
+    <MissingReturnType>
+      <code><![CDATA[onBootstrap]]></code>
+      <code><![CDATA[onDispatch]]></code>
+      <code><![CDATA[onLogin]]></code>
+    </MissingReturnType>
+    <MixedPropertyAssignment>
+      <code><![CDATA[$user]]></code>
+    </MixedPropertyAssignment>
+    <UnusedParam>
+      <code><![CDATA[$event]]></code>
+    </UnusedParam>
+    <UnusedProperty>
+      <code><![CDATA[$actionManager]]></code>
+      <code><![CDATA[$loginThingy]]></code>
+      <code><![CDATA[$user]]></code>
+    </UnusedProperty>
+    <UnusedVariable>
+      <code><![CDATA[$app]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Mod/src/LoginMod/ListenerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(ActionManager::class)]]></code>
+      <code><![CDATA[$container->get(Entity\LoginThingy::class)]]></code>
+      <code><![CDATA[$container->get(UserInterface::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Mod/src/LoginMod/LoginMod.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$loginThingy]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/Router/src/ConfigProvider.php">
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Router/src/Container/RouteStackFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get('config')]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Router/src/Route.php">
+    <MixedArgument>
+      <code><![CDATA[$actionClass]]></code>
+      <code><![CDATA[$methods]]></code>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$query]]></code>
+    </MixedArgument>
+    <PossiblyNullArgument>
+      <code><![CDATA[$actionClass]]></code>
+      <code><![CDATA[$this->query]]></code>
+      <code><![CDATA[$this->query]]></code>
+    </PossiblyNullArgument>
+    <PossiblyUndefinedVariable>
+      <code><![CDATA[$routeQueryKeys]]></code>
+    </PossiblyUndefinedVariable>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$actionClass]]></code>
+    </PossiblyUnusedProperty>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->query['action'])]]></code>
+    </RiskyTruthyFalsyComparison>
+    <UnusedVariable>
+      <code><![CDATA[$methods]]></code>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$query]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Router/src/RouteResult.php">
+    <MissingParamType>
+      <code><![CDATA[$default]]></code>
+      <code><![CDATA[$value]]></code>
+    </MissingParamType>
+    <MissingReturnType>
+      <code><![CDATA[getParam]]></code>
+    </MissingReturnType>
+    <PossiblyNullArgument>
+      <code><![CDATA[$this->params]]></code>
+    </PossiblyNullArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getMatchedRouteName]]></code>
+      <code><![CDATA[getParams]]></code>
+      <code><![CDATA[setParams]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Router/src/RouteStack.php">
+    <ImplementedParamTypeMismatch>
+      <code><![CDATA[$route]]></code>
+    </ImplementedParamTypeMismatch>
+    <InvalidArgument>
+      <code><![CDATA[$spec]]></code>
+    </InvalidArgument>
+    <InvalidReturnStatement>
+      <code><![CDATA[$router]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[RouterInterface]]></code>
+    </InvalidReturnType>
+    <MissingParamType>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$value]]></code>
+    </MissingParamType>
+    <MixedArgument>
+      <code><![CDATA[$config['routes']]]></code>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$route]]></code>
+      <code><![CDATA[$route]]></code>
+      <code><![CDATA[$route['name']]]></code>
+      <code><![CDATA[$route['name']]]></code>
+      <code><![CDATA[$route['priority']]]></code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$param]]></code>
+      <code><![CDATA[$param]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess>
+      <code><![CDATA[$route['name']]]></code>
+      <code><![CDATA[$route['name']]]></code>
+      <code><![CDATA[$route['priority']]]></code>
+    </MixedArrayAccess>
+    <MixedInferredReturnType>
+      <code><![CDATA[RouterInterface]]></code>
+      <code><![CDATA[self]]></code>
+    </MixedInferredReturnType>
+    <MixedMethodCall>
+      <code><![CDATA[match]]></code>
+    </MixedMethodCall>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->routes->get($name)]]></code>
+    </MixedReturnStatement>
+    <ParamNameMismatch>
+      <code><![CDATA[$config]]></code>
+    </ParamNameMismatch>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getRoute]]></code>
+      <code><![CDATA[hasRoute]]></code>
+      <code><![CDATA[routeFromArray]]></code>
+      <code><![CDATA[setDefaultParam]]></code>
+      <code><![CDATA[setDefaultParams]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Router/src/RouteStackInterface.php">
+    <MismatchingDocblockParamType>
+      <code><![CDATA[iterable|TRoute]]></code>
+      <code><![CDATA[iterable|TRoute]]></code>
+    </MismatchingDocblockParamType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[removeRoute]]></code>
+      <code><![CDATA[setRoutes]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[self]]></code>
+      <code><![CDATA[static]]></code>
+    </PossiblyUnusedReturnValue>
+    <UndefinedDocblockClass>
+      <code><![CDATA[iterable|TRoute]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Router/src/RouterInterface.php">
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[RouteResult|bool]]></code>
+    </MismatchingDocblockReturnType>
+    <UndefinedDocblockClass>
+      <code><![CDATA[RouteInterface]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Template/src/ArrayParametersTrait.php">
+    <UndefinedDocblockClass>
+      <code><![CDATA[Exception\InvalidArgumentException]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Template/src/AssetListener.php">
+    <MissingReturnType>
+      <code><![CDATA[onBootstrap]]></code>
+    </MissingReturnType>
+    <UnusedParam>
+      <code><![CDATA[$event]]></code>
+    </UnusedParam>
+    <UnusedProperty>
+      <code><![CDATA[$am]]></code>
+      <code><![CDATA[$config]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/Template/src/ConfigProvider.php">
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Template/src/Container/AssetListenerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get('config')['template_helper_config']]]></code>
+      <code><![CDATA[$container->get(AssetManager::class)]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$container->get('config')['template_helper_config']]]></code>
+    </MixedArrayAccess>
+    <UnusedClass>
+      <code><![CDATA[AssetListenerFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Template/src/Container/AssetManagerFactory.php">
+    <UnusedClass>
+      <code><![CDATA[AssetManagerFactory]]></code>
+    </UnusedClass>
+    <UnusedParam>
+      <code><![CDATA[$container]]></code>
+    </UnusedParam>
+  </file>
+  <file src="src/Template/src/Container/HelperPluginManagerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$helperConfig]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['template_helpers']]]></code>
+    </MixedArrayAccess>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($helperConfig)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Template/src/Container/NamespacedPathStackResolverFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$config['default_suffix']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['templates']]]></code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/Template/src/Container/PhpRendererStrategyFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(PhpRenderer::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Template/src/Container/TemplateRendererAwareInitializer.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[$instance]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[__invoke]]></code>
+    </InvalidReturnType>
+    <MixedArgument>
+      <code><![CDATA[$container->get(TemplateRendererInterface::class)]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Template/src/Container/TemplateRendererFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$config['extension']]]></code>
+      <code><![CDATA[$config['layout']]]></code>
+      <code><![CDATA[$config['map'] ?? []]]></code>
+      <code><![CDATA[$container->get(HelperPluginManager::class)]]></code>
+      <code><![CDATA[$container->get(NamespacedPathStackResolver::class)]]></code>
+      <code><![CDATA[$namepace]]></code>
+      <code><![CDATA[$path]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['extension']]]></code>
+      <code><![CDATA[$config['layout']]]></code>
+      <code><![CDATA[$config['map']]]></code>
+      <code><![CDATA[$config['paths']]]></code>
+      <code><![CDATA[$config['templates']]]></code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/Template/src/Container/TemplateResolverFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$namespaceResolver]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Template/src/DefaultParamsTrait.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[addDefaultParam]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Exception\InvalidArgumentException]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Template/src/Helper/Container/AssetFactory.php">
+    <UnusedClass>
+      <code><![CDATA[AssetFactory]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Template/src/Helper/Container/BasePathFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$config['template_helper_config']['base_path']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['template_helper_config']]]></code>
+      <code><![CDATA[$config['template_helper_config']['base_path']]]></code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/Template/src/Helper/Container/DocTypeDelegatorFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$config['doctype']]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['doctype']]]></code>
+      <code><![CDATA[$config['template_helper_config']]]></code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/Template/src/NamespacedPathStackResolver.php">
+    <ConstructorSignatureMismatch>
+      <code><![CDATA[$options]]></code>
+    </ConstructorSignatureMismatch>
+    <DeprecatedClass>
+      <code><![CDATA[Stream::class]]></code>
+    </DeprecatedClass>
+    <DeprecatedConstant>
+      <code><![CDATA[TemplatePathStack::FAILURE_NOT_FOUND]]></code>
+      <code><![CDATA[TemplatePathStack::FAILURE_NO_PATHS]]></code>
+    </DeprecatedConstant>
+    <DeprecatedMethod>
+      <code><![CDATA[useStreamWrapper]]></code>
+    </DeprecatedMethod>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+      <code><![CDATA[$this->useViewStream]]></code>
+      <code><![CDATA[$this->useViewStream]]></code>
+    </DeprecatedProperty>
+    <ImplementedReturnTypeMismatch>
+      <code><![CDATA[?string]]></code>
+      <code><![CDATA[?string]]></code>
+      <code><![CDATA[void]]></code>
+    </ImplementedReturnTypeMismatch>
+    <InvalidArgument>
+      <code><![CDATA[$options]]></code>
+    </InvalidArgument>
+    <InvalidExtendClass>
+      <code><![CDATA[TemplatePathStack]]></code>
+    </InvalidExtendClass>
+    <MethodSignatureMismatch>
+      <code><![CDATA[public function __construct(?iterable $options = null)]]></code>
+      <code><![CDATA[public function addPath($path, ?string $namespace = self::DEFAULT_NAMESPACE): void]]></code>
+      <code><![CDATA[public function addPaths(array $paths): void]]></code>
+      <code><![CDATA[public function clearPaths(): void]]></code>
+      <code><![CDATA[public function resolve($name, ?RendererInterface $renderer = null): ?string]]></code>
+      <code><![CDATA[public function setPaths($paths): void]]></code>
+    </MethodSignatureMismatch>
+    <MixedArgument>
+      <code><![CDATA[is_object($paths) ? $paths::class : gettype($paths)]]></code>
+    </MixedArgument>
+    <RedundantCondition>
+      <code><![CDATA[gettype($paths)]]></code>
+    </RedundantCondition>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$path]]></code>
+      <code><![CDATA[$path]]></code>
+    </RiskyTruthyFalsyComparison>
+    <TypeDoesNotContainType>
+      <code><![CDATA[is_object($paths)]]></code>
+    </TypeDoesNotContainType>
+  </file>
+  <file src="src/Template/src/TemplateEvent.php">
+    <MissingTemplateParam>
+      <code><![CDATA[TemplateEvent]]></code>
+    </MissingTemplateParam>
+    <UnusedClass>
+      <code><![CDATA[TemplateEvent]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Template/src/TemplatePath.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getNamespace]]></code>
+      <code><![CDATA[getPath]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Template/src/TemplateRenderer.php">
+    <InvalidArgument>
+      <code><![CDATA[$resolver]]></code>
+    </InvalidArgument>
+    <MixedArgument>
+      <code><![CDATA[$params]]></code>
+      <code><![CDATA[$resolver]]></code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$params]]></code>
+      <code><![CDATA[$this->mergeParams($layout->getTemplate(), (array) $layout->getVariables())]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedMethodCall>
+      <code><![CDATA[setRoot]]></code>
+    </MixedMethodCall>
+    <MixedOperand>
+      <code><![CDATA[$oldResult]]></code>
+    </MixedOperand>
+    <ParamNameMismatch>
+      <code><![CDATA[$modelOrTemplate]]></code>
+    </ParamNameMismatch>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$modelOrTemplate]]></code>
+      <code><![CDATA[$modelOrTemplate]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidCast>
+      <code><![CDATA[$modelOrTemplate]]></code>
+      <code><![CDATA[$modelOrTemplate]]></code>
+    </PossiblyInvalidCast>
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[$this->getNamespacedResolver($resolver)]]></code>
+    </PossiblyNullPropertyAssignmentValue>
+    <PossiblyNullReference>
+      <code><![CDATA[setDefaultSuffix]]></code>
+    </PossiblyNullReference>
+    <PropertyTypeCoercion>
+      <code><![CDATA[$layout]]></code>
+    </PropertyTypeCoercion>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Exception\InvalidArgumentException]]></code>
+      <code><![CDATA[Exception\RenderingException]]></code>
+    </UndefinedDocblockClass>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[resolver]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Template/src/TemplateRendererInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getPaths]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/User/src/ConfigProvider.php">
+    <UnusedClass>
+      <code><![CDATA[ConfigProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/User/src/Entity/Container/UserFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$guestData]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$config['mock-data']]]></code>
+      <code><![CDATA[$config['mock-data'][UserInterface::class]]]></code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/User/src/Entity/User.php">
+    <MissingTemplateParam>
+      <code><![CDATA[User]]></code>
+    </MissingTemplateParam>
+    <MixedInferredReturnType>
+      <code><![CDATA[?int]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->offsetGet('userId')]]></code>
+    </MixedReturnStatement>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[User]]></code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/User/src/UserInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getUserId]]></code>
+      <code><![CDATA[setUserId]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="test/Actions/AbstractActionTest.php">
+    <MissingPropertyType>
+      <code><![CDATA[$abstractAction]]></code>
+    </MissingPropertyType>
+    <MissingReturnType>
+      <code><![CDATA[testActionsAreEventManagerAware]]></code>
+      <code><![CDATA[testActionsAreTemplateRendererAware]]></code>
+      <code><![CDATA[testActionsCanGetEventManagerInstance]]></code>
+      <code><![CDATA[testActionsCanGetTemplateRendererInstance]]></code>
+      <code><![CDATA[testActionsImplementActionInterface]]></code>
+    </MissingReturnType>
+    <MixedMethodCall>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[getEventManager]]></code>
+      <code><![CDATA[getRenderer]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[willReturn]]></code>
+      <code><![CDATA[willReturn]]></code>
+    </MixedMethodCall>
+  </file>
+  <file src="test/Actions/AbstractActionTestCase.php">
+    <MixedMethodCall>
+      <code><![CDATA[get]]></code>
+    </MixedMethodCall>
+    <UnresolvableInclude>
+      <code><![CDATA[require self::CONTAINER_FILE]]></code>
+    </UnresolvableInclude>
+  </file>
+  <file src="test/Actions/BoardIndexActionTest.php">
+    <MissingReturnType>
+      <code><![CDATA[testActionInvocationReturnsResponse]]></code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Actions/DisplayActionTest.php">
+    <MissingReturnType>
+      <code><![CDATA[testActionInvocationReturnsResponse]]></code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Actions/LoginActionTest.php">
+    <MissingReturnType>
+      <code><![CDATA[testActionInvocationReturnsResponse]]></code>
+      <code><![CDATA[testActionInvocationWithSubActionReturnsResponse]]></code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Actions/MessageIndexActionTest.php">
+    <MissingReturnType>
+      <code><![CDATA[testActionInvocationReturnsResponse]]></code>
+    </MissingReturnType>
+  </file>
+  <file src="test/AppTest.php">
+    <MixedMethodCall>
+      <code><![CDATA[get]]></code>
+    </MixedMethodCall>
+    <UnresolvableInclude>
+      <code><![CDATA[require self::CONTAINER_FILE]]></code>
+    </UnresolvableInclude>
+    <UnusedProperty>
+      <code><![CDATA[$event]]></code>
+    </UnusedProperty>
+  </file>
+</files>
