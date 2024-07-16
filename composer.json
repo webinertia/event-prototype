@@ -2,7 +2,7 @@
     "require": {
         "laminas/laminas-component-installer": "^3.4",
         "laminas/laminas-config-aggregator": "^1.15",
-        "laminas/laminas-servicemanager": "3.22.1",
+        "laminas/laminas-servicemanager": "4.2.0",
         "webinertia/webinertia-utils": "^0.0.10",
         "laminas/laminas-eventmanager": "^3.13",
         "laminas/laminas-diactoros": "^3.3",
